@@ -9,7 +9,6 @@ global.jQuery = $;
 const Home = React.lazy(() => import('./HMC/Home/Home'));
 
 //Appointment
-const MakeAppointment = React.lazy(() => import('./HMC/Appointment/MakeAppointment'));
 const Calendar = React.lazy(() => import('./HMC/Appointment/Calendar'));
 
 //Medical Instruction
@@ -25,11 +24,14 @@ const Reminder = React.lazy(() => import('./HMC/Medication/Reminder'));
 const Pulse = React.lazy(() => import('./HMC/HealthMonitor/Pulse'));
 const ReportSymptom = React.lazy(() => import('./HMC/HealthMonitor/ReportSymptom'));
 
+//Profile
+const Profile = React.lazy(() => import('./HMC/Profile/Profile'));
+// const Profile = React.lazy(() => import('./HMC/Profile/PersonalInfo'));
 
 
 const routes = [
     { path: '/home', exact: true, name: 'Home', component: Home },
-    { path: '/appointment/make-appointment', exact: true, name: 'Make Appointment', component: MakeAppointment },
+    { path: '/profile', exact: true, name: 'Profile', component: Profile },
     { path: '/appointment/calendar', exact: true, name: 'Appointment Calendar', component: Calendar },
     { path: '/home-test/add-measurement', exact: true, name: 'Measurement', component: Measurement },
     { path: '/home-test/visualization', exact: true, name: 'Visualization', component: Visualization },

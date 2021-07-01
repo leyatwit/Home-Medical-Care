@@ -1,41 +1,41 @@
 export default {
     items: [
-        {
-            id: 'auth-test',
-            title: 'Authentication Testing',
-            type: 'group',
-            icon: 'icon-navigation',
-            children: [
-                {
-                    id: 'sign-in',
-                    title: 'Sign In',
-                    type: 'item',
-                    url: '/auth/signin',
-                    icon: 'feather icon-log-in',
-                    target: true,
-                     breadcrumbs: false
-                },
-                {
-                    id: 'sign-up',
-                    title: 'Sign Up',
-                    type: 'item',
-                    url: '/auth/signup',
-                    icon: 'feather icon-user-plus',
-                    target: true,
-                    breadcrumbs: false
-                },
-                {
-                    id: 'logout',
-                    title: 'Sign out',
-                    type: 'item',
-                    url: '/auth/sign-in',
-                    icon: 'feather icon-log-out',
-                }
-            ]
-        },
+        // {
+        //     id: 'auth-test',
+        //     title: 'Authentication Testing',
+        //     type: 'group',
+        //     icon: 'icon-navigation',
+        //     children: [
+        //         {
+        //             id: 'sign-in',
+        //             title: 'Sign In',
+        //             type: 'item',
+        //             url: '/auth/signin',
+        //             icon: 'feather icon-log-in',
+        //             target: true,
+        //              breadcrumbs: false
+        //         },
+        //         {
+        //             id: 'sign-up',
+        //             title: 'Sign Up',
+        //             type: 'item',
+        //             url: '/auth/signup',
+        //             icon: 'feather icon-user-plus',
+        //             target: true,
+        //             breadcrumbs: false
+        //         },
+        //         {
+        //             id: 'logout',
+        //             title: 'Sign out',
+        //             type: 'item',
+        //             url: '/auth/sign-in',
+        //             icon: 'feather icon-log-out',
+        //         }
+        //     ]
+        // },
         {
             id: 'profile',
-            title: 'Profile',
+            title: 'Dashboard',
             type: 'group',
             icon: 'icon-navigation',
             children: [
@@ -61,13 +61,6 @@ export default {
                     type: 'item',
                     icon: 'feather icon-calendar',
                     url: '/appointment/calendar'
-                },
-                {
-                    id: 'make-appointment',
-                    title: 'Make Appointment',
-                    type: 'item',
-                    icon: 'feather icon-plus-square',
-                    url: '/appointment/make-appointment'
                 }
             ]
         },
@@ -85,13 +78,13 @@ export default {
                     children: [
                         {
                             id: 'add-measurement',
-                            title: 'Add Measurement',
+                            title: 'Measurement',
                             type: 'item',
                             url: '/home-test/add-measurement'
                         },
                         {
                             id: 'add-test',
-                            title: 'Add Medical Test',
+                            title: 'Medical Test',
                             type: 'item',
                             url: '/home-test/add-test'
                         },
