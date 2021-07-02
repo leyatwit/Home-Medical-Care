@@ -23,6 +23,8 @@ router.post(
 
     try {
       let newAppointment = new Appointment({
+        user: req.user.id,
+        profile: req.body.profile,
         appointmentType: req.body.appointmentType,
         appointmentDate: req.body.appointmentDate,
         appointmentTime: req.body.appointmentTime,
@@ -96,36 +98,41 @@ router.delete("/:id", auth, async (req, res) => {
 // @desc     Get one appointment by appointment id
 // @access   Private
 router.get("/:id", auth, async (req, res) => {
-    try {
-      const appointment = await Appointment.findById(req.params.id);
-  
-      if (!appointment) {
-        return res.status(404).json({ msg: "Appointment not found" });
-      }
-  
-      res.json(appointment);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server Error for Getting One Appointment");
+  try {
+    const appointment = await Appointment.findById(req.params.id);
+
+    if (!appointment) {
+      return res.status(404).json({ msg: "Appointment not found" });
     }
-  });
+
+    res.json(appointment);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error for Getting One Appointment");
+  }
+});
 
 // @route    GET api/appointment/
-// @desc     Get all appointments
+// @desc     Get all appointments in the family
 // @access   Private
-router.get("/", auth, async (req, res) => {
+router.get(
+  "/user/:user_id",
+  checkObjectId("user_id"),
+  async ({ params: { user_id } }, res) => {
     try {
-      const appointment = await Appointment.find({});
-  
+    
+      const appointment = await Appointment.find({ user: user_id });
+
       if (!appointment) {
         return res.status(404).json({ msg: "Appointments not found" });
       }
-  
+
       res.json(appointment);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error for Getting Appointments");
     }
-  });
-  
+  }
+);
+
 module.exports = router;
