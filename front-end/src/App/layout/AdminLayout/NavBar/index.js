@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import NavRight from "./NavRight";
 import Aux from "../../../../hoc/_Aux";
 import DEMO from "../../../../store/constant";
-import * as actionTypes from "../../../../store/actions";
+import * as actionTypes from "../../../../store/actions/types";
 
 class NavBar extends Component {
     render() {
