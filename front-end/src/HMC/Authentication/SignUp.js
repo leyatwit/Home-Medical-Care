@@ -1,45 +1,120 @@
-import React from 'react';
-import {NavLink} from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { NavLink, Redirect } from 'react-router-dom';
+import axios from 'axios';
 import './../../assets/scss/style.scss';
-import Aux from "../../hoc/_Aux";
-import Breadcrumb from "../../App/layout/AdminLayout/Breadcrumb";
+import Aux from '../../hoc/_Aux';
+import Breadcrumb from '../../App/layout/AdminLayout/Breadcrumb';
 // import DEMO from "../../store/constant";
 
-class SignUp extends React.Component {
-    render () {
-        return(
-            <Aux>
-                <Breadcrumb/>
-                <div className="auth-wrapper">
-                    <div className="auth-content">
-                        <div className="auth-bg">
-                            <span className="r"/>
-                            <span className="r s"/>
-                            <span className="r s"/>
-                            <span className="r"/>
-                        </div>
-                        <div className="card">
-                            <div className="card-body text-center">
-                                <div className="mb-4">
-                                    <i className="feather icon-user-plus auth-icon"/>
-                                </div>
-                                <h3 className="mb-4">Sign up</h3>
-                                <div className="input-group mb-3">
-                                    <input type="email" className="form-control" placeholder="Email"/>
-                                </div>
-                                <div className="input-group mb-4">
-                                    <input type="password" className="form-control" placeholder="password"/>
-                                </div>
-                                <button className="btn btn-primary shadow-2 mb-4">Sign up</button>
-                                <p className="mb-0 text-muted">Allready have an account? <NavLink to="/auth/signin">Login</NavLink></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Aux>
+const SignUp = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    password2: ''
+  });
+  const { email, password, password2 } = formData;
+
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== password2) {
+      // setAlert('Passwords do not match', 'danger');
+      console.log('Password do not match');
+    } else {
+      // register({ name, email, password });
+      const newUser = {
+        email,
+        password
+      };
+      try {
+        const config = {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        };
+
+        const body = JSON.stringify(newUser);
+
+        const res = await axios.post(
+          'http://localhost:5000/api/user ',
+          body,
+          config
         );
+        console.log(res.data);
+      } catch (err) {
+        console.log(err.response.data);
+      }
     }
-}
+  };
+
+  //   if (isAuthenticated) {
+  //     return <Redirect to='/dashboard' />;
+  //   }
+
+  return (
+    <Aux>
+      <Breadcrumb />
+      <div className='auth-wrapper'>
+        <div className='auth-content'>
+          <div className='auth-bg'>
+            <span className='r' />
+            <span className='r s' />
+            <span className='r s' />
+            <span className='r' />
+          </div>
+          <form onSubmit={onSubmit}>
+            <div className='card'>
+              <div className='card-body text-center'>
+                <div className='mb-4'>
+                  <i className='feather icon-user-plus auth-icon' />
+                </div>
+                <h3 className='mb-4'>Sign up</h3>
+                <div className='input-group mb-3'>
+                  <input
+                    type='email'
+                    className='form-control'
+                    placeholder='Email'
+                    name='email'
+                    value={email}
+                    onChange={onChange}
+                  />
+                </div>
+                <div className='input-group mb-4'>
+                  <input
+                    type='password'
+                    className='form-control'
+                    placeholder='password'
+                    name='password'
+                    value={password}
+                    onChange={onChange}
+                  />
+                </div>
+                <div className='input-group mb-4'>
+                  <input
+                    type='password'
+                    className='form-control'
+                    placeholder='confirm password'
+                    name='password2'
+                    value={password2}
+                    onChange={onChange}
+                  />
+                </div>
+                <button type='submit' className='btn btn-primary shadow-2 mb-4'>
+                  Sign up
+                </button>
+                <p className='mb-0 text-muted'>
+                  Allready have an account?{' '}
+                  <NavLink to='/auth/signin'>Login</NavLink>
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </Aux>
+  );
+};
 
 export default SignUp;
