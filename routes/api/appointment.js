@@ -4,7 +4,6 @@ const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 
 const Appointment = require("../../models/Appointment");
-const Profile = require("../../models/Profile");
 const checkObjectId = require("../../middleware/checkObjectId");
 
 // @route    POST api/appointment
@@ -72,6 +71,11 @@ router.put(
           useFindAndModify: false,
         }
       );
+      
+      if (!appointment) {
+        return res.status(404).json({ msg: "Appointment not found" });
+      }
+
       return res.json(appointment);
     } catch (err) {
       console.error(err.message);
