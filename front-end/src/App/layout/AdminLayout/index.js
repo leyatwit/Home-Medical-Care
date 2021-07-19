@@ -13,8 +13,8 @@ import Aux from '../../../hoc/_Aux';
 import * as actionTypes from '../../../store/actions';
 
 import './app.scss';
-
-import Alert from './../Alert';
+import PrivateRoute from '../../components/routing/PrivateRoute';
+import Routes from '../../components/routing/Routes';
 
 class AdminLayout extends Component {
   fullScreenExitHandler = () => {
@@ -59,7 +59,7 @@ class AdminLayout extends Component {
 
     const menu = routes.map((route, index) => {
       return route.component ? (
-        <Route
+        <PrivateRoute
           key={index}
           path={route.path}
           exact={route.exact}
@@ -86,8 +86,7 @@ class AdminLayout extends Component {
                     <div className='page-wrapper'>
                       <Suspense fallback={<Loader />}>
                         <Switch>
-                          {menu}
-                          {/* <Redirect from='/' to={this.props.defaultPath} /> */}
+                          <Route component={Routes} />
                           <Redirect from='/' to='/home' />
                         </Switch>
                       </Suspense>

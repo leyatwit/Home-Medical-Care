@@ -1,12 +1,13 @@
 import React from 'react';
 import $ from 'jquery';
-
+import Profile from './App/components/Profile';
+import Home from './HMC/Home';
 window.jQuery = $;
 window.$ = $;
 global.jQuery = $;
 
 //Home
-const Home = React.lazy(() => import('./HMC/Home/Home'));
+// const Home = React.lazy(() => import('./HMC/Home'));
 
 //Appointment
 const Calendar = React.lazy(() => import('./HMC/Appointment/Calendar'));
@@ -33,11 +34,12 @@ const ReportSymptom = React.lazy(() =>
 );
 
 //Profile
-const Profile = React.lazy(() => import('./App/components/Profile'));
+// const Profile = React.lazy(() => import('./App/components/Profile'));
+
 // const Profile = React.lazy(() => import('./HMC/Profile/PersonalInfo'));
 
 const routes = [
-  { path: '/home', exact: true, name: 'Home', component: Home },
+  { path: '/home', exact: true, name: 'Home', component: { Home } },
   { path: '/profile', exact: true, name: 'Profile', component: Profile },
   {
     path: '/appointment',
