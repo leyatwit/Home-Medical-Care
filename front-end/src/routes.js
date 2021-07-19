@@ -23,7 +23,7 @@ const Visualization = React.lazy(() =>
   import('./HMC/HomeHealthTesting/Visualization/Visualization')
 );
 //Medication
-const Prescription = React.lazy(() => import('./HMC/Medication/Prescription'));
+const Medication = React.lazy(() => import('./HMC/Medication/Prescription'));
 // const Reminder = React.lazy(() => import('./HMC/Medication/Reminder'));
 
 //HealthMonitor
@@ -40,34 +40,34 @@ const routes = [
   { path: '/home', exact: true, name: 'Home', component: Home },
   { path: '/profile', exact: true, name: 'Profile', component: Profile },
   {
-    path: '/appointment/calendar',
+    path: '/appointment',
     exact: true,
     name: 'Appointment Calendar',
     component: Calendar
   },
   {
-    path: '/home-test/add-measurement',
+    path: '/body-measurement',
     exact: true,
     name: 'Measurement',
     component: Measurement
   },
   {
-    path: '/home-test/visualization',
+    path: '/visualization',
     exact: true,
     name: 'Visualization',
     component: Visualization
   },
   {
-    path: '/home-test/add-test',
+    path: '/home-medical-test',
     exact: true,
     name: 'Medical Test',
     component: MedicalTest
   },
   {
-    path: '/medication/prescription',
+    path: '/medication',
     exact: true,
     name: 'Prescription',
-    component: Prescription
+    component: Medication
   },
   {
     path: '/health-monitor/pulse',
@@ -76,7 +76,7 @@ const routes = [
     component: Pulse
   },
   {
-    path: '/health-monitor/report-symptoms',
+    path: '/report-symptoms',
     exact: true,
     name: 'Report Symptoms',
     component: ReportSymptom

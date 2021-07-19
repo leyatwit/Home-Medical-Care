@@ -95,10 +95,13 @@
     "reactour": "^1.18.0",
     "recharts": "^1.8.5",
     "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.3.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.1.1",
     "sweetalert2": "^9.15.2",
     "sweetalert2-react-content": "^3.0.1",
+    "uuid": "^8.3.2",
     "validator": "^13.1.1"
   },
   "scripts": {
@@ -118,5 +121,6 @@
   ],
   "devDependencies": {
     "react-to-print": "^2.12.6"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }

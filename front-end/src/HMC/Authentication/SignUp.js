@@ -6,7 +6,14 @@ import Aux from '../../hoc/_Aux';
 import Breadcrumb from '../../App/layout/AdminLayout/Breadcrumb';
 // import DEMO from "../../store/constant";
 
-const SignUp = () => {
+//Redux
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
+import PropTypes from 'prop-types';
+import Alert from './../../App/layout/Alert';
+
+const SignUp = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -20,42 +27,43 @@ const SignUp = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      // setAlert('Passwords do not match', 'danger');
-      console.log('Password do not match');
+      setAlert('Passwords do not match', 'danger');
+      // console.log('Password do not match');
     } else {
-      // register({ name, email, password });
-      const newUser = {
-        email,
-        password
-      };
-      try {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        };
+      register({ email, password });
+      // const newUser = {
+      //   email,
+      //   password
+      // };
+      // try {
+      //   const config = {
+      //     headers: {
+      //       'Content-Type': 'application/json'
+      //     }
+      //   };
 
-        const body = JSON.stringify(newUser);
+      //   const body = JSON.stringify(newUser);
 
-        const res = await axios.post(
-          'http://localhost:5000/api/user ',
-          body,
-          config
-        );
-        console.log(res.data);
-      } catch (err) {
-        console.log(err.response.data);
-      }
+      //   const res = await axios.post(
+      //     'http://localhost:5000/api/user ',
+      //     body,
+      //     config
+      //   );
+      //   console.log(res.data);
+      // } catch (err) {
+      //   console.log(err.response.data);
+      // }
     }
   };
 
-  //   if (isAuthenticated) {
-  //     return <Redirect to='/dashboard' />;
-  //   }
+  if (isAuthenticated) {
+    return <Redirect to='/home' />;
+  }
 
   return (
     <Aux>
       <Breadcrumb />
+
       <div className='auth-wrapper'>
         <div className='auth-content'>
           <div className='auth-bg'>
@@ -109,6 +117,9 @@ const SignUp = () => {
                   <NavLink to='/auth/signin'>Login</NavLink>
                 </p>
               </div>
+              <div className='m-3 d-block'>
+                <Alert />
+              </div>
             </div>
           </form>
         </div>
@@ -116,5 +127,13 @@ const SignUp = () => {
     </Aux>
   );
 };
+SignUp.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
+};
 
-export default SignUp;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+export default connect(mapStateToProps, { setAlert, register })(SignUp);

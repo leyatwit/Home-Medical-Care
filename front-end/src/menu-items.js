@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   items: [
     {
@@ -59,7 +60,7 @@ export default {
           title: 'Calendar',
           type: 'item',
           icon: 'feather icon-calendar',
-          url: '/appointment/calendar'
+          url: '/appointment'
         }
       ]
     },
@@ -70,50 +71,39 @@ export default {
       icon: 'icon-ui',
       children: [
         {
-          id: 'home-test',
-          title: 'Home Health Monitor',
-          type: 'collapse',
-          icon: 'feather icon-file-text',
-          children: [
-            {
-              id: 'measurement',
-              title: 'Body Measurements',
-              type: 'item',
-              url: '/home-test/add-measurement'
-            },
-            {
-              id: 'medical-test',
-              title: 'Medical Home Testing',
-              type: 'item',
-              url: '/home-test/add-test'
-            },
-            {
-              id: 'report-symptoms',
-              title: 'Report Symptoms',
-              type: 'item',
-              url: '/health-monitor/report-symptoms'
-            },
-            {
-              id: 'visualization',
-              title: 'Visualization',
-              type: 'item',
-              url: '/home-test/visualization'
-            }
-          ]
+          id: 'prescription',
+          title: 'Manage Prescriptions',
+          type: 'item',
+          icon: 'feather icon-command',
+          url: '/medication'
         },
         {
-          id: 'medication',
-          title: 'Medication',
-          type: 'collapse',
-          icon: 'feather icon-command',
-          children: [
-            {
-              id: 'prescription',
-              title: 'Manage Prescriptions',
-              type: 'item',
-              url: '/medication/prescription'
-            }
-          ]
+          id: 'report-symptoms',
+          title: 'Report Symptoms',
+          type: 'item',
+          url: '/report-symptoms',
+          icon: 'feather icon-file-text'
+        },
+        {
+          id: 'add-measurement',
+          title: 'Measurement',
+          type: 'item',
+          icon: 'feather icon-film',
+          url: '/body-measurement'
+        },
+        {
+          id: 'add-test',
+          title: 'Medical Test',
+          type: 'item',
+          icon: 'feather icon-star',
+          url: '/home-medical-test'
+        },
+        {
+          id: 'visualization',
+          title: 'Visualization',
+          type: 'item',
+          icon: 'feather icon-slack',
+          url: '/visualization'
         }
       ]
     },
