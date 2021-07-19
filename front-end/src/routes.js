@@ -33,7 +33,7 @@ const ReportSymptom = React.lazy(() =>
 );
 
 //Profile
-const Profile = React.lazy(() => import('./HMC/Profile/Profile'));
+const Profile = React.lazy(() => import('./App/components/Profile'));
 // const Profile = React.lazy(() => import('./HMC/Profile/PersonalInfo'));
 
 const routes = [

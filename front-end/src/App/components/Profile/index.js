@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import '../../assets/scss/style.scss';
-import Aux from '../../hoc/_Aux';
+import '../../../assets/scss/style.scss';
+import Aux from '../../../hoc/_Aux';
 
 import PersonalInfo from './PersonalInfo';
 import FamilyMember from './FamilyMember';

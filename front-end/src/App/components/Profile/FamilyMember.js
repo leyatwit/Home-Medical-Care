@@ -1,10 +1,10 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import '../../assets/scss/style.scss';
+import '../../../assets/scss/style.scss';
 // import Aux from "../../hoc/_Aux";
-import avatar1 from '../../assets/images/user/avatar-1.jpg';
-import avatar2 from '../../assets/images/user/avatar-2.jpg';
-import avatar3 from '../../assets/images/user/avatar-3.jpg';
+import avatar1 from '../../../assets/images/user/avatar-1.jpg';
+import avatar2 from '../../../assets/images/user/avatar-2.jpg';
+import avatar3 from '../../../assets/images/user/avatar-3.jpg';
 // import DEMO from "../../store/constant";
 class FamilyMember extends React.Component {
   state = {
