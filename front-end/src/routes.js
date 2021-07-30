@@ -1,49 +1,49 @@
 import React from 'react';
 import $ from 'jquery';
-
+import Profile from './HMC/Profile/Profile';
+import Home from './HMC/Home/Dashboard';
 window.jQuery = $;
 window.$ = $;
 global.jQuery = $;
 
 //Home
-const Home = React.lazy(() => import('./HMC/Home/Home'));
+// const Home = React.lazy(() => import('./HMC/Home'));
 
 //Appointment
-const Calendar = React.lazy(() => import('./HMC/Appointment/Calendar'));
+const Appointment = React.lazy(() => import('./HMC/Appointment/Appointment'));
 
 //Medical Instruction
 //Home Health Testing
 const Measurement = React.lazy(() =>
   import('./HMC/HomeHealthTesting/Measurement')
 );
-const MedicalTest = React.lazy(() =>
-  import('./HMC/HomeHealthTesting/MedicalTest')
-);
+const MedicalTest = React.lazy(() => import('./HMC/MedicalTest/MedicalTest'));
 const Visualization = React.lazy(() =>
   import('./HMC/HomeHealthTesting/Visualization/Visualization')
 );
 //Medication
-const Medication = React.lazy(() => import('./HMC/Medication/Prescription'));
+const Medication = React.lazy(() => import('./HMC/Medication/Medication'));
 // const Reminder = React.lazy(() => import('./HMC/Medication/Reminder'));
 
 //HealthMonitor
 const Pulse = React.lazy(() => import('./HMC/HealthMonitor/Pulse'));
 const ReportSymptom = React.lazy(() =>
-  import('./HMC/HealthMonitor/ReportSymptom')
+  import('./HMC/ReportSymptom/ReportSymptom')
 );
 
 //Profile
-const Profile = React.lazy(() => import('./HMC/Profile/Profile'));
+// const Profile = React.lazy(() => import('./App/components/Profile'));
+
 // const Profile = React.lazy(() => import('./HMC/Profile/PersonalInfo'));
 
 const routes = [
-  { path: '/home', exact: true, name: 'Home', component: Home },
+  { path: '/home', exact: true, name: 'Home', component: { Home } },
   { path: '/profile', exact: true, name: 'Profile', component: Profile },
   {
     path: '/appointment',
     exact: true,
     name: 'Appointment Calendar',
-    component: Calendar
+    component: Appointment
   },
   {
     path: '/body-measurement',

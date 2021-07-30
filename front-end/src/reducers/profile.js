@@ -4,6 +4,7 @@ import {
   CLEAR_PROFILE,
   UPDATE_PROFILE,
   GET_PROFILES,
+  GET_MEMBER_PROFILES,
   GET_REPOS,
   NO_REPOS
 } from '../actions/types';
@@ -28,6 +29,7 @@ function profileReducer(state = initialState, action) {
         loading: false
       };
     case GET_PROFILES:
+    case GET_MEMBER_PROFILES:
       return {
         ...state,
         profiles: payload,

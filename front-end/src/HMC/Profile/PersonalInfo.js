@@ -1,88 +1,117 @@
-import React from 'react';
-import {Button, Modal,Form,Card} from 'react-bootstrap'
+import React, { useState, useEffect } from 'react';
+import { Button, Modal, Form, Card, Row, Col, Badge } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import moment from 'moment';
 import '../../assets/scss/style.scss';
-import Aux from "../../hoc/_Aux";
+import Aux from '../../hoc/_Aux';
 import avatar2 from '../../assets/images/user/avatar-2.jpg';
-class PersonalInfo extends React.Component {
-    state = {
-        gender: 'f',
-        isBasic: false,
-        isVertically: false,
-        isTooltip: false,
-        isGrid: false,
-        isScrolling: false,
-        isLarge: false,
-        title: ''
-    };
+import avatar1 from '../../assets/images/user/avatar-1.jpg';
+import avatar3 from '../../assets/images/user/avatar-3.jpg';
+import { connect } from 'react-redux';
+import { getMemberProfiles } from '../../actions/profile';
+import DEMO from '../../store/constant';
 
-    render () {
-        return(
-            <Aux>
-                <Card className='loction-user'>
-                    <Card.Header>
-                        <Card.Title as='h5'>Personal Information</Card.Title>
-                    </Card.Header>
-                    <Card.Body className='p-0'>
-                    <div className="text-center project-main">
-                            <img className="img-fluid rounded-circle" src={avatar2} alt="dashboard-user"/>
-                            <h5 className="mt-4">Test User</h5>
-                            <h6 className="text-muted">Self</h6>
-                            {/* <a href={DEMO.BLANK_LINK} className="btn theme-bg text-uppercase text-white "><i className="feather icon-edit f-20 text-white"/>Edit Profile</a> */}
-                            <Button className="btn theme-bg text-uppercase text-white " onClick={() => this.setState({ isVarying: true, title: 'Personal Information' })}> <i className="feather icon-edit f-20 text-white"/>Edit Profile</Button>
-                        </div>
-                        <div className="border-top m-0"/>
-                        <div className="loction-progress">
-                            <h5 className="f-w-300 mt-0 ml-5">Name: <span className="float-right mr-5 f-w-500">Test User</span></h5>
-                            <h5 className="f-w-300 mt-3 ml-5">Relationship: <span className="float-right mr-5 f-w-500">Self</span></h5>
-                            <h5 className="f-w-300 mt-3 ml-5">DOB:<span className="float-right mr-5 f-w-500">March 26, 2000</span></h5>
-                            <h5 className="f-w-300 mt-3 ml-5 mb-0">Gender:<span className="float-right mr-5 f-w-500">Female</span></h5>
-                        </div>
-                        
-                        <Modal show={this.state.isVarying} onHide={() => this.setState({ isVarying: false })}>
-                            <Modal.Header closeButton>
-                                <Modal.Title as="h5"> {this.state.title}</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <Form>
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Label>Name:</Form.Label>
-                                        <Form.Control type="text" name="name" placeholder="Enter name" defaultValue={this.state.title} />
-                                    </Form.Group>
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Label>Relationship:</Form.Label>
-                                        <Form.Control name="relationship" as="select" >
-                                            <option>Father</option>
-                                            <option>Mother</option>
-                                            <option>Child</option>
-                                            <option>Brother</option>
-                                            <option>Sister</option>
-                                        </Form.Control>
-                                    </Form.Group>
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Label>DOB:</Form.Label>
-                                        <Form.Control type="text" name="name" placeholder="Enter date of birth:" defaultValue={this.state.title} />
-                                    </Form.Group>
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Label>Gender:</Form.Label>
-                                        <Form.Control name="gender" as="select">
-                                            <option>Female</option>
-                                            <option>Male</option>
-                                        </Form.Control>
-                                    </Form.Group>
-                                    
-                                </Form>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={() => this.setState({ isVarying: false })}>Close</Button>
-                                <Button variant="primary">Save Changes</Button>
-                            </Modal.Footer>
-                        </Modal>
-                    </Card.Body>
-                </Card>
-                
-            </Aux>
-        );
+const PersonalInfo = ({
+  getMemberProfiles,
+  primaryProfile,
+  profile: { profiles, loading }
+}) => {
+  var primaryID;
+  var currentProfile = primaryProfile ? primaryProfile : {};
+
+  console.log('in PersonalInfo |currentProfile:', currentProfile);
+  var currentUser =
+    primaryProfile && primaryProfile.user ? primaryProfile.user : {};
+  var age = moment().diff(currentProfile.birthday, 'years');
+  var height =
+    currentProfile.heightFeet + "'" + currentProfile.heightInch + "''";
+  var weight = currentProfile.weight + ' lb';
+  var avartar = currentProfile.gender === 'female' ? avatar1 : avatar2;
+
+  useEffect(() => {
+    if (currentProfile) {
+      console.log('Primary Profile:', currentProfile);
+      primaryID = currentProfile._id;
+      getMemberProfiles(primaryID);
     }
-}
+  }, [getMemberProfiles, primaryID]);
+  console.log('Profiles:', profiles);
+  const members = profiles.map((mem) => (
+    <a href={`/profile/${mem._id}`}>
+      <img
+        className='img-fluid media-object img-radius mr-3'
+        src={mem.gender === 'female' ? avatar1 : avatar2}
+        alt='1'
+      />
+    </a>
+  ));
+  return (
+    <Card className='loction-user'>
+      <Card.Header>
+        <Card.Title as='h5'>Personal Information</Card.Title>
+      </Card.Header>
+      <Card.Body className='p-0'>
+        <div className='text-center project-main'>
+          <img
+            className='img-fluid rounded-circle'
+            src={avartar}
+            alt='dashboard-user'
+          />
+          <br />
+          <Badge variant='primary'>Primary Profile</Badge>
+          <h5 className='mt-4'>{currentUser.name}</h5>
 
-export default PersonalInfo;
+          <div className='row card-active  text-center'>
+            <div className='col-md-3 col-6'>
+              <h4>{age}</h4>
+              <span className='text-muted'>Age</span>
+            </div>
+            <div className='col-md-3 col-6'>
+              <h4>{weight}</h4>
+              <span className='text-muted'>Weight</span>
+            </div>
+            <div className='col-md-3 col-6'>
+              <h4>{height}</h4>
+              <span className='text-muted'>Height</span>
+            </div>
+            <div className='col-md-3 col-12'>
+              <h4>{currentProfile.bmi}</h4>
+              <span className='text-muted'>IBM</span>
+            </div>
+          </div>
+          {/* <a href={DEMO.BLANK_LINK} className="btn theme-bg text-uppercase text-white "><i className="feather icon-edit f-20 text-white"/>Edit Profile</a> */}
+          <Button
+            className='btn theme-bg text-uppercase text-white '
+            href='/edit-profile'
+          >
+            {' '}
+            <i className='feather icon-edit f-20 text-white' />
+            Edit Profile
+          </Button>
+        </div>
+
+        <Card.Header>
+          <Card.Title as='h5'>Family Member</Card.Title>
+        </Card.Header>
+        <div className='task-list-table text-center m-4'>
+          {members}
+          <a href='/add-member-profile'>
+            <i className='fa fa-plus' />
+          </a>
+        </div>
+      </Card.Body>
+    </Card>
+  );
+};
+PersonalInfo.propTypes = {
+  getMemberProfiles: PropTypes.func.isRequired,
+  // profiles: PropTypes.array.isRequired,
+  // primaryID: PropTypes.string.isRequired,
+  // auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
+};
+const mapStateToProps = (state) => ({
+  // profiles: state.profiles,
+  profile: state.profile
+});
+export default connect(mapStateToProps, { getMemberProfiles })(PersonalInfo);
