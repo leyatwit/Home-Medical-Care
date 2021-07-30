@@ -4,6 +4,7 @@ import { setAlert } from './alert';
 import {
   GET_PROFILE,
   GET_PROFILES,
+  GET_MEMBER_PROFILES,
   PROFILE_ERROR,
   UPDATE_PROFILE,
   CLEAR_PROFILE,
@@ -47,14 +48,14 @@ export const getProfiles = () => async (dispatch) => {
     });
   }
 };
-
-// Get profile by ID
-export const getProfileById = (userId) => async (dispatch) => {
+// Get member profiles
+export const getMemberProfiles = (primaryID) => async (dispatch) => {
+  dispatch({ type: CLEAR_PROFILE });
   try {
-    const res = await api.get(`/profile/user/${userId}`);
+    const res = await api.get(`/profile/members/${primaryID}`);
 
     dispatch({
-      type: GET_PROFILE,
+      type: GET_MEMBER_PROFILES,
       payload: res.data
     });
   } catch (err) {
@@ -65,41 +66,116 @@ export const getProfileById = (userId) => async (dispatch) => {
   }
 };
 
-// Get Github repos
-export const getGithubRepos = (username) => async (dispatch) => {
+// Get profile by ID
+export const getProfileById = (profileId) => async (dispatch) => {
   try {
-    const res = await api.get(`/profile/github/${username}`);
+    const res = await api.get(`/profile/${profileId}`);
 
     dispatch({
-      type: GET_REPOS,
+      type: GET_PROFILE,
       payload: res.data
     });
   } catch (err) {
     dispatch({
-      type: NO_REPOS
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
 };
 
 // Create or update profile
-export const createProfile = (formData, history, edit = false) => async (
-  dispatch
-) => {
+export const createProfile =
+  (formData, history, edit = false) =>
+  async (dispatch) => {
+    try {
+      console.log(formData);
+      const res = await api.post('/profile', formData);
+
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      });
+
+      dispatch(
+        setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success')
+        // setAlert('Profile Created', 'success')
+      );
+
+      if (!edit) {
+        history.push('/home');
+      } else {
+        history.push('/profile');
+      }
+    } catch (err) {
+      const errors = err.response.data.errors;
+
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      }
+
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status }
+      });
+    }
+  };
+// Create or update Memberprofile
+export const createMemberProfile =
+  (formData, history, edit = false) =>
+  async (dispatch) => {
+    try {
+      console.log('Member Adding', formData);
+      const res = await api.post('/profile/member', formData);
+
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      });
+
+      dispatch(
+        setAlert(
+          edit ? 'Member Profile Updated' : 'Member Profile Created',
+          'success'
+        )
+        // setAlert('Profile Created', 'success')
+      );
+
+      if (!edit) {
+        history.push('/home');
+      } else {
+        history.push('/profile');
+      }
+    } catch (err) {
+      const errors = err.response.data.errors;
+
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      }
+
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status }
+      });
+    }
+  };
+
+// Add Appointment
+export const addAppointment = (formData, history) => async (dispatch) => {
   try {
-    const res = await api.post('/profile', formData);
+    console.log(formData);
+    const res = await api.put('/profile/appointment', formData);
 
     dispatch({
-      type: GET_PROFILE,
+      type: UPDATE_PROFILE,
       payload: res.data
     });
 
-    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
-
-    if (!edit) {
-      history.push('/dashboard');
-    }
+    dispatch(setAlert('Appointment Added', 'success'));
+    console.log('history', history);
+    // history.push('/home');
   } catch (err) {
-    const errors = err.response.data.errors;
+    console.log('add appt error: ', err);
+    const errors = err.response.errors;
 
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
@@ -111,22 +187,39 @@ export const createProfile = (formData, history, edit = false) => async (
     });
   }
 };
-
-// Add Experience
-export const addExperience = (formData, history) => async (dispatch) => {
+// Delete appointment
+export const deleteAppointment = (id) => async (dispatch) => {
   try {
-    const res = await api.put('/profile/experience', formData);
+    const res = await api.delete(`/profile/appointment/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
     });
 
-    dispatch(setAlert('Experience Added', 'success'));
-
-    history.push('/dashboard');
+    dispatch(setAlert('Appointment Removed', 'success'));
   } catch (err) {
-    const errors = err.response.data.errors;
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+// Add Medical Test
+export const addMedicalTest = (formData, history) => async (dispatch) => {
+  try {
+    console.log(formData);
+    const res = await api.put('/profile/medTest', formData);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+
+    dispatch(setAlert('Medical Test Added', 'success'));
+    // history.push('/home');
+  } catch (err) {
+    const errors = err.response.errors;
 
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
@@ -138,22 +231,39 @@ export const addExperience = (formData, history) => async (dispatch) => {
     });
   }
 };
-
-// Add Education
-export const addEducation = (formData, history) => async (dispatch) => {
+// Delete Medical Test
+export const deleteMedicalTest = (id) => async (dispatch) => {
   try {
-    const res = await api.put('/profile/education', formData);
+    const res = await api.delete(`/profile/medTest/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
     });
 
-    dispatch(setAlert('Education Added', 'success'));
-
-    history.push('/dashboard');
+    dispatch(setAlert('Medical Test Removed', 'success'));
   } catch (err) {
-    const errors = err.response.data.errors;
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+// Add Symptom Report
+export const addSymptom = (formData, history) => async (dispatch) => {
+  try {
+    console.log(formData);
+    const res = await api.put('/profile/symptom', formData);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+
+    dispatch(setAlert('Symptom Added', 'success'));
+    // history.push('/home');
+  } catch (err) {
+    const errors = err.response.errors;
 
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
@@ -165,18 +275,53 @@ export const addEducation = (formData, history) => async (dispatch) => {
     });
   }
 };
-
-// Delete experience
-export const deleteExperience = (id) => async (dispatch) => {
+// Delete Symptom
+export const deleteSymptom = (id) => async (dispatch) => {
   try {
-    const res = await api.delete(`/profile/experience/${id}`);
+    const res = await api.delete(`/profile/symptom/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
     });
 
-    dispatch(setAlert('Experience Removed', 'success'));
+    dispatch(setAlert('Symptom Removed', 'success'));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+// Update medication
+export const updateMedication = (id) => async (dispatch) => {
+  try {
+    const res = await api.put(`/profile/medication/${id}`);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+
+    dispatch(setAlert('Medication Updated', 'success'));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+// Delete medication
+export const deleteMedication = (id) => async (dispatch) => {
+  try {
+    const res = await api.delete(`/profile/medication/${id}`);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+
+    dispatch(setAlert('Medication Removed', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -185,18 +330,26 @@ export const deleteExperience = (id) => async (dispatch) => {
   }
 };
 
-// Delete education
-export const deleteEducation = (id) => async (dispatch) => {
+// Add Medication
+export const addMedication = (formData, history) => async (dispatch) => {
   try {
-    const res = await api.delete(`/profile/education/${id}`);
+    const res = await api.put('/profile/medication', formData);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
     });
 
-    dispatch(setAlert('Education Removed', 'success'));
+    dispatch(setAlert('Medication Added', 'success'));
+
+    // history.push('/home');
   } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }

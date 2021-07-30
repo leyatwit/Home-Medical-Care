@@ -15,11 +15,12 @@ import Alert from './../../App/layout/Alert';
 
 const SignUp = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
+    name: '',
     email: '',
     password: '',
     password2: ''
   });
-  const { email, password, password2 } = formData;
+  const { name, email, password, password2 } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,7 +31,7 @@ const SignUp = ({ setAlert, register, isAuthenticated }) => {
       setAlert('Passwords do not match', 'danger');
       // console.log('Password do not match');
     } else {
-      register({ email, password });
+      register({ name, email, password });
       // const newUser = {
       //   email,
       //   password
@@ -81,6 +82,16 @@ const SignUp = ({ setAlert, register, isAuthenticated }) => {
                 <h3 className='mb-4'>Sign up</h3>
                 <div className='input-group mb-3'>
                   <input
+                    type='input'
+                    className='form-control'
+                    placeholder='Your name'
+                    name='name'
+                    value={name}
+                    onChange={onChange}
+                  />
+                </div>
+                <div className='input-group mb-3'>
+                  <input
                     type='email'
                     className='form-control'
                     placeholder='Email'
@@ -89,6 +100,7 @@ const SignUp = ({ setAlert, register, isAuthenticated }) => {
                     onChange={onChange}
                   />
                 </div>
+
                 <div className='input-group mb-4'>
                   <input
                     type='password'

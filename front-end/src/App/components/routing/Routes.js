@@ -1,23 +1,39 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
-import Home from '../../../HMC/Home';
-import Profile from '../Profile';
-import Calendar from '../../../HMC/Appointment/Calendar';
+import Dashboard from '../../../HMC/Home/Dashboard';
+import Profile from '../../../HMC/Profile/Profile';
+import MemberProfile from '../../../HMC/Profile/MemberProfile';
+import Appointment from '../../../HMC/Appointment/Appointment';
 import Measurement from '../../../HMC/HomeHealthTesting/Measurement';
 import Visualization from '../../../HMC/HomeHealthTesting/Visualization/Visualization';
-import Medication from '../../../HMC/Medication/Prescription';
-import ReportSymptom from '../../../HMC/HealthMonitor/ReportSymptom';
+import Medication from '../../../HMC/Medication/Medication';
+import ReportSymptom from '../../../HMC/ReportSymptom/ReportSymptom';
+import ProfileForm from '../../../HMC/Profile-Form/ProfileForm';
+import MemberProfileForm from '../../../HMC/Profile-Form/MemberProfileForm';
 import Pulse from '../../../HMC/HealthMonitor/Pulse';
-import MedicalTest from '../../../HMC/HomeHealthTesting/MedicalTest';
+import MedicalTest from '../../../HMC/MedicalTest/MedicalTest';
 
 const Routes = (props) => {
   return (
     <Switch>
-      <PrivateRoute exact path='/' component={Home} />
-      <PrivateRoute exact path='/home' component={Home} />
+      <PrivateRoute exact path='/' component={Dashboard} />
+      <PrivateRoute exact path='/home' component={Dashboard} />
       <PrivateRoute exact path='/profile' component={Profile} />
-      <PrivateRoute exact path='/appointment' component={Calendar} />
+      <PrivateRoute exact path='/add-profile' component={ProfileForm} />
+      <PrivateRoute exact path='/edit-profile' component={ProfileForm} />
+      <PrivateRoute
+        exact
+        path='/add-member-profile'
+        component={MemberProfileForm}
+      />
+      <PrivateRoute
+        exact
+        path='/edit-member-profile'
+        component={MemberProfileForm}
+      />
+      <PrivateRoute exact path='/profile/:id' component={MemberProfile} />
+      <PrivateRoute exact path='/appointment' component={Appointment} />
       <PrivateRoute exact path='/body-measurement' component={Measurement} />
       <PrivateRoute exact path='/visualization' component={Visualization} />
       <PrivateRoute exact path='/home-medical-test' component={MedicalTest} />

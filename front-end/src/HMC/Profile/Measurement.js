@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
-import '../../../assets/scss/style.scss';
-import humanbody from '../../../assets/images/widget/human_body.png';
+import '../../assets/scss/style.scss';
+import humanbody from '../../assets/images/widget/human_body.png';
 class Measurement extends React.Component {
   render() {
     return (
