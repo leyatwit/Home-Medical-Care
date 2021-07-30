@@ -1,39 +1,39 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   items: [
-    {
-      id: 'auth-test',
-      title: 'Authentication Testing',
-      type: 'group',
-      icon: 'icon-navigation',
-      children: [
-        {
-          id: 'sign-in',
-          title: 'Sign In',
-          type: 'item',
-          url: '/auth/signin',
-          icon: 'feather icon-log-in',
-          target: true,
-          breadcrumbs: false
-        },
-        {
-          id: 'sign-up',
-          title: 'Sign Up',
-          type: 'item',
-          url: '/auth/signup',
-          icon: 'feather icon-user-plus',
-          target: true,
-          breadcrumbs: false
-        },
-        {
-          id: 'logout',
-          title: 'Sign out',
-          type: 'item',
-          url: '/auth/sign-in',
-          icon: 'feather icon-log-out'
-        }
-      ]
-    },
+    // {
+    //   id: 'auth-test',
+    //   title: 'Authentication Testing',
+    //   type: 'group',
+    //   icon: 'icon-navigation',
+    //   children: [
+    //     {
+    //       id: 'sign-in',
+    //       title: 'Sign In',
+    //       type: 'item',
+    //       url: '/auth/signin',
+    //       icon: 'feather icon-log-in',
+    //       target: true,
+    //       breadcrumbs: false
+    //     },
+    //     {
+    //       id: 'sign-up',
+    //       title: 'Sign Up',
+    //       type: 'item',
+    //       url: '/auth/signup',
+    //       icon: 'feather icon-user-plus',
+    //       target: true,
+    //       breadcrumbs: false
+    //     },
+    //     {
+    //       id: 'logout',
+    //       title: 'Sign out',
+    //       type: 'item',
+    //       url: '/auth/sign-in',
+    //       icon: 'feather icon-log-out'
+    //     }
+    //   ]
+    // },
     {
       id: 'profile',
       title: 'Dashboard',
