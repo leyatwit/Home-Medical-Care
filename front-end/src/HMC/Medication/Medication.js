@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Aux from '../../hoc/_Aux';
 import Datetime from 'react-datetime';
 import AddMedication from './AddMedication';
+import moment from 'moment';
 import {
   getCurrentProfile,
   deleteMedication,
@@ -36,7 +37,9 @@ const Medication = ({
             <Card.Text className='task-due'>
               <h5>Precription Details</h5>
               <strong> Prescribed : </strong>
-              <strong className='label label-primary'>{med.prescribed}</strong>
+              <strong className='label label-primary'>
+                {moment.utc(med.prescribed).format('MM/DD/YYYY')}
+              </strong>
               <br />
               <strong> Approved by : </strong>
               <strong className='text-primary'>{med.approvedBy}</strong>
