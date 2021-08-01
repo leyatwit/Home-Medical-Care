@@ -63,39 +63,46 @@ const UpcomingAppointment = ({ appointment }) => {
           >
             <Tab.Content>
               <Tab.Pane eventKey='1'>
-                <h2 className='text-white mb-3 f-w-300'>datetime</h2>
-                <span className='text-white mb-2 d-block'>type</span>
-                <span className='text-white mb-4 d-block'> @ location</span>
+                <h2 className='text-white mb-3 f-w-300'>2:00 PM</h2>
+                <span className='text-white mb-2 d-block'>
+                  Check up for Yen
+                </span>
+                <span className='text-white mb-4 d-block'>
+                  {' '}
+                  @ Boston Medical Center
+                </span>
               </Tab.Pane>
               <Tab.Pane eventKey='2'>
-                <h2 className='text-white mb-3 f-w-300'>datetime</h2>
-                <span className='text-white mb-2 d-block'>type</span>
+                <h2 className='text-white mb-3 f-w-300'>3:00 PM</h2>
+                <span className='text-white mb-2 d-block'>
+                  Dental Appointment for Nic
+                </span>
                 <span className='text-white mb-4 d-block'> @ location</span>
               </Tab.Pane>
               <Tab.Pane eventKey='3'>
-                <h2 className='text-white mb-3 f-w-300'>datetime</h2>
-                <span className='text-white mb-2 d-block'>type</span>
-                <span className='text-white mb-4 d-block'> @ location</span>
+                <h2 className='text-white mb-3 f-w-300'>No Appt</h2>
+                <span className='text-white mb-2 d-block'>.</span>
+                <span className='text-white mb-4 d-block'>.</span>
               </Tab.Pane>
               <Tab.Pane eventKey='4'>
-                <h2 className='text-white mb-3 f-w-300'>datetime</h2>
-                <span className='text-white mb-2 d-block'>type</span>
-                <span className='text-white mb-4 d-block'> @ location</span>
+                <h2 className='text-white mb-3 f-w-300'>No Appt</h2>
+                <span className='text-white mb-2 d-block'>.</span>
+                <span className='text-white mb-4 d-block'>.</span>
               </Tab.Pane>
               <Tab.Pane eventKey='5'>
-                <h2 className='text-white mb-3 f-w-300'>datetime</h2>
-                <span className='text-white mb-2 d-block'>type</span>
-                <span className='text-white mb-4 d-block'> @ location</span>
+                <h2 className='text-white mb-3 f-w-300'>No Appt</h2>
+                <span className='text-white mb-2 d-block'>.</span>
+                <span className='text-white mb-4 d-block'>.</span>
               </Tab.Pane>
               <Tab.Pane eventKey='6'>
-                <h2 className='text-white mb-3 f-w-300'>datetime</h2>
-                <span className='text-white mb-2 d-block'>type</span>
-                <span className='text-white mb-4 d-block'> @ location</span>
+                <h2 className='text-white mb-3 f-w-300'>No Appt</h2>
+                <span className='text-white mb-2 d-block'>.</span>
+                <span className='text-white mb-4 d-block'>.</span>
               </Tab.Pane>
               <Tab.Pane eventKey='0'>
-                <h2 className='text-white mb-3 f-w-300'>datetime</h2>
-                <span className='text-white mb-2 d-block'>type</span>
-                <span className='text-white mb-4 d-block'> @ location</span>
+                <h2 className='text-white mb-3 f-w-300'>No Appt</h2>
+                <span className='text-white mb-2 d-block'>.</span>
+                <span className='text-white mb-4 d-block'>.</span>
               </Tab.Pane>
             </Tab.Content>
             <Nav
