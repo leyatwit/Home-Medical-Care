@@ -149,7 +149,7 @@ const MemberProfileForm = ({
     <Aux>
       <Row>
         <Col></Col>
-        <Col>
+        <Col lg={7}>
           <Card>
             <Card.Header>
               <Card.Title as='h5'>
@@ -185,7 +185,7 @@ const MemberProfileForm = ({
                 </Form.Group>
                 <Form.Group as={Row} controlId='formDate1'>
                   <Form.Label column sm={3}>
-                    Birthday
+                    Relationship
                   </Form.Label>
                   <Col sm={9}>
                     <FormControl
@@ -198,10 +198,12 @@ const MemberProfileForm = ({
                       <option value='father'>Father</option>
                       <option value='mother'>Mother</option>
                       <option value='wife'>Wife</option>
+                      <option value='husband'>Husband</option>
                       <option value='sister'>Sister</option>
                       <option value='brother'>Brother</option>
                       <option value='son'>Son</option>
                       <option value='daughter'>Daughter</option>
+                      <option value='partner'>Partner</option>
                     </FormControl>
                   </Col>
                 </Form.Group>

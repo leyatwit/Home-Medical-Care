@@ -156,7 +156,7 @@ const ProfileForm = ({
     <Aux>
       <Row>
         <Col></Col>
-        <Col>
+        <Col lg={7}>
           <Card>
             <Card.Header>
               <Card.Title as='h5'>

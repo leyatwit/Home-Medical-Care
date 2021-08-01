@@ -38,12 +38,14 @@ const NavRight = ({ auth: { isAuthenticated }, logout }) => {
                 </li>
                 <li>
                   <a href='/profile' className='dropdown-item'>
-                    <i className='feather icon-user' /> Profile
+                    <i className='feather icon-user' /> 
+                    View Profile
                   </a>
                 </li>
                 <li>
                   <a href={DEMO.BLANK_LINK} className='dropdown-item'>
-                    <i className='feather icon-user-plus' /> Add Member
+                    <i className='feather icon-user-plus' /> 
+                    Add Member
                   </a>
                 </li>
                 <li>

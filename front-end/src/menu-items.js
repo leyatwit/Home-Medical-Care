@@ -85,26 +85,19 @@ export default {
           icon: 'feather icon-file-text'
         },
         {
-          id: 'add-measurement',
-          title: 'Measurement',
-          type: 'item',
-          icon: 'feather icon-film',
-          url: '/body-measurement'
-        },
-        {
           id: 'add-test',
           title: 'Medical Test',
           type: 'item',
           icon: 'feather icon-star',
           url: '/home-medical-test'
-        },
+        },        
         {
-          id: 'visualization',
-          title: 'Visualization',
+          id: 'add-measurement',
+          title: 'Body Measurement',
           type: 'item',
-          icon: 'feather icon-slack',
-          url: '/visualization'
-        }
+          icon: 'feather icon-film',
+          url: '/body-measurement'
+        },
       ]
     },
     {
@@ -119,6 +112,18 @@ export default {
           type: 'item',
           icon: 'feather icon-activity',
           url: '/maintenance/coming-soon',
+          badge: {
+            title: 'Upcoming',
+            type: 'label-success'
+          }
+        },
+        ,
+        {
+          id: 'visualization',
+          title: 'Visualization',
+          type: 'item',
+          icon: 'feather icon-slack',
+          url: '/visualization',
           badge: {
             title: 'Upcoming',
             type: 'label-success'

@@ -20,7 +20,7 @@ class Document extends React.Component {
         <Card.Header>
           <Card.Title as='h5'>
             {' '}
-            Medical cDocument
+            Medical Document
             {/* <a href={DEMO.BLANK_LINK} className="btn theme-bg text-uppercase text-white float-right"><i className="feather icon-user-plus f-20 text-white"/>Add Member</a> */}
           </Card.Title>
         </Card.Header>
