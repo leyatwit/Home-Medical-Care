@@ -13,6 +13,7 @@ import UpcomingAppointment from './UpcomingAppointment';
 import MedicationReminder from './MedicationReminder';
 import PersonalData from './PersonalData';
 import Virtualization from './Virtualization';
+
 const Dashboard = ({
   getCurrentProfile,
   auth: { user },
@@ -21,33 +22,62 @@ const Dashboard = ({
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
-  // return (
-  //   // <Fragment>{profile !== null ? <Dashboard /> : <Newprofile />}</Fragment>
-  //   <Fragment>Home</Fragment>
-  // );
-  return loading && profile === null ? (
-    <Spinner />
-  ) : (
-    <Row>
-      {/* UPCOMING APPOINTMENT */}
-      <Col md={6} xl={6}>
-        <UpcomingAppointment appointment={profile.appointment} />
-      </Col>
-      {/* MEDICATION REMINDER */}
-      <Col md={6} xl={6}>
-        <MedicationReminder />
-      </Col>
+  return (
+    // <Fragment>{profile !== null ? <Dashboard /> : <Newprofile />}</Fragment>
+    // <Fragment>Home</Fragment>
+    <Fragment>
+      {profile !== null ? (
+        <Row>
+          {/* UPCOMING APPOINTMENT */}
+          <Col md={6} xl={6}>
+            {/* <UpcomingAppointment appointment={profile.appointment} /> */}
+            <UpcomingAppointment />
+          </Col>
+          {/* MEDICATION REMINDER */}
+          <Col md={6} xl={6}>
+            <MedicationReminder />
+          </Col>
 
-      {/* PROFILE DATA */}
-      <Col md={6} xl={6}>
-        <PersonalData />
-      </Col>
-      {/* VIRTUALIZATION */}
-      <Col md={6} xl={6}>
-        <Virtualization />
-      </Col>
-    </Row>
+          {/* PROFILE DATA */}
+          <Col md={6} xl={6}>
+            <PersonalData />
+          </Col>
+          {/* VIRTUALIZATION */}
+          <Col md={6} xl={6}>
+            <Virtualization />
+          </Col>
+        </Row>
+      ) : (
+        <Newprofile />
+      )}
+    </Fragment>
   );
+
+  // return loading && profile === null ? (
+  //   <Spinner />
+  // ) : (
+
+  // <Row>
+  //   {/* UPCOMING APPOINTMENT */}
+  //   <Col md={6} xl={6}>
+  //     {/* <UpcomingAppointment appointment={profile.appointment} /> */}
+  //     <UpcomingAppointment />
+  //   </Col>
+  //   {/* MEDICATION REMINDER */}
+  //   <Col md={6} xl={6}>
+  //     <MedicationReminder />
+  //   </Col>
+
+  //   {/* PROFILE DATA */}
+  //   <Col md={6} xl={6}>
+  //     <PersonalData />
+  //   </Col>
+  //   {/* VIRTUALIZATION */}
+  //   <Col md={6} xl={6}>
+  //     <Virtualization />
+  //   </Col>
+  // </Row>
+  // );
 };
 
 Dashboard.propTypes = {

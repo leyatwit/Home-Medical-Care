@@ -49,7 +49,7 @@ const ProfileForm = ({
   var currentUser = profile && profile.user ? profile.user : {};
   var currentProfile = profile ? profile : {};
   var avartar = currentProfile.gender === 'female' ? avatar1 : avatar2;
-  const creatingProfile = useRouteMatch('/create-profile');
+  const creatingProfile = useRouteMatch('/create-profile') || !profile;
   useEffect(() => {
     if (!profile) getCurrentProfile();
     if (!loading && profile) {

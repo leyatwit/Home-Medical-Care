@@ -101,12 +101,13 @@ export const createProfile =
         // setAlert('Profile Created', 'success')
       );
 
-      if (!edit) {
-        history.push('/home');
-      } else {
-        history.push('/profile');
-      }
+      // if (!edit) {
+      //   history.push('/home');
+      // } else {
+      //   history.push('/profile');
+      // }
     } catch (err) {
+      console.log('Error:', err);
       const errors = err.response.data.errors;
 
       if (errors) {

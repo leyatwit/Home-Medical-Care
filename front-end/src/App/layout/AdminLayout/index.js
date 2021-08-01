@@ -15,6 +15,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import './app.scss';
 import PrivateRoute from '../../components/routing/PrivateRoute';
 import Routes from '../../components/routing/Routes';
+import { Alert } from 'react-bootstrap';
 
 class AdminLayout extends Component {
   fullScreenExitHandler = () => {
@@ -79,12 +80,13 @@ class AdminLayout extends Component {
             onClick={() => this.mobileOutClickHandler}
           >
             <div className='pcoded-wrapper'>
+              <Alert />
               <div className='pcoded-content'>
                 <div className='pcoded-inner-content'>
                   <Breadcrumb />
                   <div className='main-body'>
                     <div className='page-wrapper'>
-                      <ToastContainer />
+                      {/* <ToastContainer /> */}
                       <Suspense fallback={<Loader />}>
                         <Switch>
                           <Route component={Routes} />

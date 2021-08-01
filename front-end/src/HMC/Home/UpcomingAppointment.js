@@ -17,29 +17,29 @@ import DEMO from '../../store/constant';
 const UpcomingAppointment = ({ appointment }) => {
   const today = new Date();
   console.log(today);
-  console.log('add 7 days:', today.setDate(today.getDate() + 7));
-  var day = today.getDay();
-  var endOfWeek = day + 6;
-  appointment.forEach((appt) => {
-    console.log('appt Date:', Date.parse(appt.date));
-    if (Date.parse(appt.date) >= today.setDate(today.getDate() + 7))
-      console.log('in the week:', appt);
-  });
-  for (let i = 0; i <= 7; i++) {
-    if (day > 6) day = day - 7;
-    console.log(day);
-    day++;
-  }
-  // console.log(appointment);
-  const appointments = appointment.map((appt) => {
-    return;
-    <Tab.Pane eventKey={Date.parse(appt.date).getDay()}>
-      <h2 className='text-white mb-3 f-w-300'>{appt.date}</h2>
-      <span className='text-white mb-2 d-block'>{appt.type}</span>
-      <span className='text-white mb-4 d-block'> @ {appt.location}</span>
-    </Tab.Pane>;
-  });
-  console.log('appt:', appointments);
+  // console.log('add 7 days:', today.setDate(today.getDate() + 7));
+  // var day = today.getDay();
+  // var endOfWeek = day + 6;
+  // appointment.forEach((appt) => {
+  //   console.log('appt Date:', Date.parse(appt.date));
+  //   if (Date.parse(appt.date) >= today.setDate(today.getDate() + 7))
+  //     console.log('in the week:', appt);
+  // });
+  // for (let i = 0; i <= 7; i++) {
+  //   if (day > 6) day = day - 7;
+  //   console.log(day);
+  //   day++;
+  // }
+  // // console.log(appointment);
+  // const appointments = appointment.map((appt) => {
+  //   return;
+  //   <Tab.Pane eventKey={Date.parse(appt.date).getDay()}>
+  //     <h2 className='text-white mb-3 f-w-300'>{appt.date}</h2>
+  //     <span className='text-white mb-2 d-block'>{appt.type}</span>
+  //     <span className='text-white mb-4 d-block'> @ {appt.location}</span>
+  //   </Tab.Pane>;
+  // });
+  // console.log('appt:', appointments);
   return (
     <Card className='theme-bg earning-date'>
       <Card.Header className='borderless'>

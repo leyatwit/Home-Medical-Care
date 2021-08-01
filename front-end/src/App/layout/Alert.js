@@ -4,16 +4,15 @@ import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 
 const Alert = ({ alerts }) =>
-  alerts.map(
-    (alert) =>
-      alert.alertType === 'success'
-        ? toast.success(alert.msg)
-        : toast.danger(alert.msg)
+  alerts.map((alert) => (
+    // alert.alertType === 'success'
+    //   ? toast.success(alert.msg)
+    //   : toast.danger(alert.msg)
 
-    // <div key={alert.id} className={`alert alert-${alert.alertType}`}>
-    //   {alert.msg}
-    // </div>
-  );
+    <div key={alert.id} className={`alert alert-${alert.alertType}`}>
+      {alert.msg}
+    </div>
+  ));
 
 Alert.propTypes = {
   alerts: PropTypes.array.isRequired
