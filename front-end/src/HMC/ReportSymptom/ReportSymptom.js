@@ -40,7 +40,29 @@ const ReportSymptom = ({
       <td>{sym.name}</td>
       <td>{moment.utc(sym.date).format('MM-DD-YYYY')}</td>
 
-      <td>{sym.filename}</td>
+      <td>
+        {/* <img src={require(/../../../public/symptom/${sym.filename})} /> */}
+        {/* <img
+          src={`/../../../public/symptom/${sym.filename}`}
+          alt='...'
+          class='img-thumbnail'
+        /> */}
+        <a href=''> View Photo</a>
+      </td>
+      <td>
+        <Button
+          className=' m-2 float-right btn-icon btn-rounded btn-danger'
+          onClick={() => {}}
+        >
+          <i className='feather icon-trash f-20 text-white' />
+        </Button>
+        <Button
+          className=' m-2 float-right btn-icon btn-rounded btn-warning'
+          onClick={() => {}}
+        >
+          <i className='feather icon-edit f-20 text-white' />
+        </Button>
+      </td>
     </tr>
   ));
   return (
@@ -62,6 +84,7 @@ const ReportSymptom = ({
                     <th>Name</th>
                     <th>Date</th>
                     <th>Photo</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>{symptoms}</tbody>

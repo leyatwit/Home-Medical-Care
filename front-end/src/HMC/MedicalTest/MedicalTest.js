@@ -30,6 +30,12 @@ const MedicalTest = ({
         >
           <i className='feather icon-trash f-20 text-white' />
         </Button>
+        <Button
+          className=' m-2 float-right btn-icon btn-rounded btn-warning'
+          onClick={() => deleteMedicalTest(test._id)}
+        >
+          <i className='feather icon-edit f-20 text-white' />
+        </Button>
       </h6>
       <p className='text-muted'>{test.instruction}</p>
     </li>
