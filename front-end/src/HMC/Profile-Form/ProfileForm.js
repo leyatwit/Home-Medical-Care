@@ -25,7 +25,7 @@ const initialState = {
   heightInch: '',
   bmi: '',
   birthday: '',
-  isSelf: false,
+  isSelf: true,
   relationship: ''
 };
 

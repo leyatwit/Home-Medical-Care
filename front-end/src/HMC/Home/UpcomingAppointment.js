@@ -56,7 +56,7 @@ const UpcomingAppointment = ({ appointment }) => {
         </Card.Title>
       </Card.Header>
       <Card.Body>
-        <div className='bd-example bd-example-tabs'>
+        <div className='bd-example bd-example-tabs mb-1'>
           <Tab.Container
             id='left-tabs-example'
             defaultActiveKey={today.getDay()}

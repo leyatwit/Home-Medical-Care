@@ -79,12 +79,14 @@ class AdminLayout extends Component {
             className='pcoded-main-container'
             onClick={() => this.mobileOutClickHandler}
           >
-            <div className='pcoded-wrapper'>
-              <Alert />
-              <div className='pcoded-content'>
-                <div className='pcoded-inner-content'>
+            <div className='pcoded-wrapper p-0'>
+              <div className='pcoded-content mt-0 pt-0'>
+                {/* test3 */}
+                <div className='pcoded-inner-content mt-0'>
+                  {/* test4 */}
                   <Breadcrumb />
                   <div className='main-body'>
+                    <Alert />
                     <div className='page-wrapper'>
                       {/* <ToastContainer /> */}
                       <Suspense fallback={<Loader />}>

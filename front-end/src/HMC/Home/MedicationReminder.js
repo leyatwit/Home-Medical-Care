@@ -30,7 +30,7 @@ const MedicationReminder = ({}) => {
         <Card.Title as='h5'>Medication Reminder</Card.Title>
       </Card.Header>
       <Card.Body className='border-bottom'>
-        <div className='row d-flex align-items-center'>
+        <div className='row d-flex align-items-center m-2'>
           <div className='col-auto'>
             <i className='feather icon-sun f-40 text-c-green' />
           </div>
@@ -39,7 +39,7 @@ const MedicationReminder = ({}) => {
             <span className='d-block text-muted'>1 pill</span>
           </div>
         </div>
-        <div className='row d-flex align-items-center'>
+        <div className='row d-flex align-items-center m-2'>
           <div className='col-auto'>
             <i className='feather icon-cloud f-40 text-c-green' />
           </div>
@@ -48,7 +48,7 @@ const MedicationReminder = ({}) => {
             <span className='d-block text-muted'>1 pill</span>
           </div>
         </div>
-        <div className='row d-flex align-items-center'>
+        <div className='row d-flex align-items-center m-2'>
           <div className='col-auto'>
             <i className='feather icon-moon f-40 text-c-green' />
           </div>
