@@ -4,27 +4,31 @@ const Schema = mongoose.Schema;
 const MedicationSchema = new Schema({
   profile: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "profile",
+    ref: 'profile'
   },
-  appointment: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "appointment",
-  },
-  medicationName: {
+  name: {
     type: String
   },
-  medicationArea: {
+  instruction: {
     type: String
   },
-  medicationType: {
+  approvedBy: {
     type: String
   },
-  refillDate: {
+  prescribed: {
     type: Date
   },
-  date: {
-    type: Date,
-    default: Date.now
+  quanity: {
+    type: String
+  },
+  phamacy: {
+    type: String
+  },
+  timesADay: {
+    type: String
+  },
+  dosage: {
+    type: String
   }
 });
 

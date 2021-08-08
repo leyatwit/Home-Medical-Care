@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Form, Card, Row, Col, Badge } from 'react-bootstrap';
+import { Button, Modal, Form, Card, Badge } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import '../../assets/scss/style.scss';
@@ -8,40 +8,22 @@ import avatar2 from '../../assets/images/user/avatar-2.jpg';
 import avatar1 from '../../assets/images/user/avatar-1.jpg';
 import avatar3 from '../../assets/images/user/avatar-3.jpg';
 import { connect } from 'react-redux';
-import { getMemberProfiles } from '../../actions/profile';
+import { getProfileById } from '../../actions/profile';
 import DEMO from '../../store/constant';
 
-const MemberInfo = ({
-  getMemberProfiles,
-  memberProfile,
-  profile: { profiles, loading }
-}) => {
-  var primaryID;
-  var currentProfile = memberProfile ? memberProfile : {};
+const MemberInfo = ({ getProfileById, profile: { profile }, auth, match }) => {
+  useEffect(() => {
+    console.log('match', match);
+    // getProfileById(match.params.id);
+  }, [getProfileById, match.params.id]);
+  var memberProfile = profile ? profile : {};
   var currentUser =
     memberProfile && memberProfile.user ? memberProfile.user : {};
-  var age = moment().diff(currentProfile.birthday, 'years');
-  var height =
-    currentProfile.heightFeet + "'" + currentProfile.heightInch + "''";
-  var weight = currentProfile.weight + ' lb';
-  var avartar = currentProfile.gender === 'female' ? avatar1 : avatar2;
-  console.log('Profile:', currentProfile);
-  console.log('Profiles:', profiles);
-  useEffect(() => {
-    if (memberProfile) {
-      primaryID = memberProfile.primaryProfile;
-      getMemberProfiles(primaryID);
-    }
-  }, [getMemberProfiles, primaryID]);
-  const members = profiles.map((mem) => (
-    <a href={`/profile/${mem._id}`}>
-      <img
-        className='img-fluid media-object img-radius mr-3'
-        src={mem.gender === 'female' ? avatar1 : avatar2}
-        alt='1'
-      />
-    </a>
-  ));
+  var age = moment().diff(memberProfile.birthday, 'years');
+  var height = memberProfile.heightFeet + "'" + memberProfile.heightInch + "''";
+  var weight = memberProfile.weight + ' lb';
+  var avartar = memberProfile.gender === 'female' ? avatar1 : avatar2;
+
   return (
     <Card className='loction-user'>
       <Card.Header>
@@ -56,7 +38,7 @@ const MemberInfo = ({
           />
           <br />
           <Badge variant='primary'>Member Profile</Badge>
-          <h5 className='mt-4'>{currentProfile.name}</h5>
+          <h5 className='mt-4'>{memberProfile.name}</h5>
 
           <div className='row card-active  text-center'>
             <div className='col-md-3 col-6'>
@@ -72,7 +54,7 @@ const MemberInfo = ({
               <span className='text-muted'>Height</span>
             </div>
             <div className='col-md-3 col-12'>
-              <h4>{currentProfile.bmi}</h4>
+              <h4>{memberProfile.bmi}</h4>
               <span className='text-muted'>IBM</span>
             </div>
           </div>
@@ -94,27 +76,17 @@ const MemberInfo = ({
             Primary Profile
           </Button>
         </div>
-
-        <Card.Header>
-          <Card.Title as='h5'>Family Member</Card.Title>
-        </Card.Header>
-        <div className='task-list-table text-center m-4'>
-          {members}
-          <a href='/add-member-profile'>
-            <i className='fa fa-plus' />
-          </a>
-        </div>
       </Card.Body>
     </Card>
   );
 };
 MemberInfo.propTypes = {
-  getMemberProfiles: PropTypes.func.isRequired,
-  // auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
+  getProfileById: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 const mapStateToProps = (state) => ({
-  profiles: state.profile.profiles,
-  profile: state.profile
+  profile: state.profile,
+  auth: state.auth
 });
-export default connect(mapStateToProps, { getMemberProfiles })(MemberInfo);
+export default connect(mapStateToProps, { getProfileById })(MemberInfo);

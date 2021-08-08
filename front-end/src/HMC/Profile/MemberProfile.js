@@ -1,16 +1,12 @@
 import React, { Fragment, useEffect } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Card, Badge, Button } from 'react-bootstrap';
 import '../../assets/scss/style.scss';
-import Aux from '../../hoc/_Aux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import PersonalInfo from './PersonalInfo';
-import FamilyMember from './FamilyMember';
-import Measurement from './Measurement';
-import Document from './Document';
+import moment from 'moment';
 import { getProfileById } from '../../actions/profile';
-import { Spinner } from 'react-bootstrap';
-import MemberInfo from './MemberInfo';
+import avatar2 from '../../assets/images/user/avatar-2.jpg';
+import avatar1 from '../../assets/images/user/avatar-1.jpg';
 const MemberProfile = ({
   getProfileById,
   profile: { profile },
@@ -21,26 +17,71 @@ const MemberProfile = ({
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
   console.log('member profile:', profile);
+  var memberProfile = profile ? profile : {};
+  var age = moment().diff(memberProfile.birthday, 'years');
+  var height = memberProfile.heightFeet + "'" + memberProfile.heightInch + "''";
+  var weight = memberProfile.weight + ' lb';
+  var avartar = memberProfile.gender === 'female' ? avatar1 : avatar2;
   return (
-    <Fragment>
+    <>
       {profile === null ? (
-        <Spinner />
+        'No Profile found'
       ) : (
-        <Aux>
-          <Row className='container'>
-            <Col sm={6}>
-              <MemberInfo memberProfile={profile} />
-            </Col>
-            {/* <Col sm={4}>
-          <FamilyMember />
-        </Col> */}
-            <Col sm={6}>
-              <Document />
-            </Col>
-          </Row>
-        </Aux>
+        <Card className='loction-user'>
+          <Card.Header>
+            <Card.Title as='h5'>Personal Information</Card.Title>
+          </Card.Header>
+          <Card.Body className='p-0'>
+            <div className='text-center project-main'>
+              <img
+                className='img-fluid rounded-circle'
+                src={avartar}
+                alt='dashboard-user'
+              />
+              <br />
+              <Badge variant='primary'>Member Profile</Badge>
+              <h5 className='mt-4'>{memberProfile.name}</h5>
+
+              <div className='row card-active  text-center'>
+                <div className='col-md-3 col-6'>
+                  <h4>{age}</h4>
+                  <span className='text-muted'>Age</span>
+                </div>
+                <div className='col-md-3 col-6'>
+                  <h4>{weight}</h4>
+                  <span className='text-muted'>Weight</span>
+                </div>
+                <div className='col-md-3 col-6'>
+                  <h4>{height}</h4>
+                  <span className='text-muted'>Height</span>
+                </div>
+                <div className='col-md-3 col-12'>
+                  <h4>{memberProfile.bmi}</h4>
+                  <span className='text-muted'>IBM</span>
+                </div>
+              </div>
+              {/* <a href={DEMO.BLANK_LINK} className="btn theme-bg text-uppercase text-white "><i className="feather icon-edit f-20 text-white"/>Edit Profile</a> */}
+              <Button
+                className='btn theme-bg text-uppercase text-white '
+                href='/edit-profile'
+              >
+                {' '}
+                <i className='feather icon-edit f-20 text-white' />
+                Edit Profile
+              </Button>
+              <Button
+                className='btn theme-bg text-uppercase text-white '
+                href='/profile'
+              >
+                {' '}
+                <i className='feather icon-heart f-20 text-white' />
+                Primary Profile
+              </Button>
+            </div>
+          </Card.Body>
+        </Card>
       )}
-    </Fragment>
+    </>
   );
 };
 MemberProfile.propTypes = {

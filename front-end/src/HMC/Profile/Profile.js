@@ -8,26 +8,27 @@ import PersonalInfo from './PersonalInfo';
 import FamilyMember from './FamilyMember';
 import Measurement from './Measurement';
 import Document from './Document';
-import { getProfileById, getCurrentProfile } from '../../actions/profile';
-const Profile = ({
+import {
+  getProfileById,
   getCurrentProfile,
+  getProfiles
+} from '../../actions/profile';
+const Profile = ({
+  // getCurrentProfile,
   auth: { user },
   profile: { profile, loading }
 }) => {
-  useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
+  // useEffect(() => {
+  //   getCurrentProfile();
+  // }, [getCurrentProfile]);
   console.log('in Profile | profile:', profile);
   return (
     <Aux>
       <Row className='container'>
-        <Col sm={6}>
+        <Col xs={12} sm={6}>
           <PersonalInfo primaryProfile={profile} />
         </Col>
-        {/* <Col sm={4}>
-          <FamilyMember />
-        </Col> */}
-        <Col sm={6}>
+        <Col xs={12} sm={6}>
           <Document />
         </Col>
       </Row>
@@ -45,4 +46,4 @@ const mapStateToProps = (state) => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Profile);
+export default connect(mapStateToProps, {})(Profile);

@@ -1,27 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Row, Col, Card, Form, Button, Accordion } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Aux from '../../hoc/_Aux';
 import Datetime from 'react-datetime';
-import AddMedication from './AddMedication';
 import moment from 'moment';
 import {
-  getCurrentProfile,
+  addMedication,
   deleteMedication,
   updateMedication
 } from '../../actions/profile';
 
 const Medication = ({
-  getCurrentProfile,
+  addMedication,
+  updateMedication,
   deleteMedication,
   auth: { user },
   profile: { profile, loading }
 }) => {
-  useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
+  const [edit, setEdit] = useState(false);
+  const [editMedID, setEditMedID] = useState();
   var medication = profile && profile.medication ? profile.medication : [];
+  // sort by prescribed
+  medication.sort(function (a, b) {
+    if (a.prescribed < b.prescribed) {
+      return -1;
+    }
+    if (a.prescribed > a.prescribed) {
+      return 1;
+    }
+    return 0;
+  });
   const medications = medication.map((med) => (
     <Col md={6}>
       <Card className='card-border-c-blue'>
@@ -58,14 +67,17 @@ const Medication = ({
           <hr />
           <Button
             className='btn btn-outline-primary'
-            onClick={() => updateMedication(med._id)}
+            onClick={() => handleEdit(med)}
           >
             <i className='feather icon-edit' />
             Edit Medication
           </Button>
           <Button
             className='btn btn-outline-danger float-right'
-            onClick={() => deleteMedication(med._id)}
+            onClick={() => {
+              deleteMedication(profile._id, med._id);
+              setEdit(false);
+            }}
           >
             <i className='feather icon-trash-2' />
             Remove
@@ -74,11 +86,201 @@ const Medication = ({
       </Card>
     </Col>
   ));
+
+  const [formData, setFormData] = useState({
+    name: '',
+    instruction: '',
+    approvedBy: '',
+    prescribed: '',
+    quanity: '',
+    phamacy: '',
+    timesADay: 'Morning',
+    dosage: ''
+  });
+  const {
+    name,
+    instruction,
+    approvedBy,
+    prescribed,
+    quanity,
+    phamacy,
+    timesADay,
+    dosage
+  } = formData;
+  const handleEdit = (med) => {
+    const medData = { ...formData };
+    for (const key in med) {
+      if (key in medData) medData[key] = med[key];
+    }
+    setEditMedID(med._id);
+    setEdit(true);
+    setFormData(medData);
+  };
+  const onChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+  const handleDate = (e) => {
+    setFormData({
+      ...formData,
+      prescribed: e.format('MM/DD/YYYY')
+    });
+  };
   return (
     <Aux>
       <Row>
         <Col xl={4}>
-          <AddMedication />
+          <Card>
+            <Card.Header>
+              <Card.Title as='h5'>
+                {edit ? 'Edit Medication' : 'Add Medication'}
+              </Card.Title>
+            </Card.Header>
+            <Card.Body>
+              <Form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  addMedication(formData, profile._id);
+                }}
+              >
+                <Form.Group>
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    type='text'
+                    name='name'
+                    value={name}
+                    onChange={onChange}
+                  />
+                  <Form.Label>Dosage</Form.Label>
+                  <Form.Control
+                    type='text'
+                    name='dosage'
+                    value={dosage}
+                    onChange={onChange}
+                  />
+                  <Form.Label>Type</Form.Label>
+                  <Form.Control
+                    as='select'
+                    name='timesADay'
+                    value={timesADay}
+                    onChange={onChange}
+                  >
+                    <option value='Morning'>Morning</option>
+                    <option value='Afternoon'>Afternoon</option>
+                    <option value='Evening'>Evening</option>
+                  </Form.Control>
+                  <Form.Label>Instruction</Form.Label>
+                  <Form.Control
+                    as='textarea'
+                    rows='5'
+                    name='instruction'
+                    value={instruction}
+                    onChange={onChange}
+                  />
+                </Form.Group>
+                <Accordion defaultActiveKey='0'>
+                  <Card className='border'>
+                    <Accordion.Toggle as={Card.Header} eventKey='0'>
+                      <i className='feather icon-clipboard mr-2' />
+                      Medication Details
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey='0'>
+                      <Card.Body>
+                        <Form.Group>
+                          <Form.Label>Prescribed</Form.Label>
+                          <Datetime
+                            timeFormat={false}
+                            onChange={handleDate}
+                            inputProps={{ placeholder: 'Select Date' }}
+                          />
+                        </Form.Group>
+                        <Form.Group>
+                          <Form.Label>Approved by</Form.Label>
+                          <Form.Control
+                            type='text'
+                            name='approvedBy'
+                            value={approvedBy}
+                            onChange={onChange}
+                          />
+                        </Form.Group>
+                        <Form.Group>
+                          <Form.Label>Quantity</Form.Label>
+                          <Form.Control
+                            type='text'
+                            name='quanity'
+                            value={quanity}
+                            onChange={onChange}
+                          />
+                        </Form.Group>
+                        <Form.Group>
+                          <Form.Label>Pharmacy address</Form.Label>
+                          <Form.Control
+                            as='textarea'
+                            rows='3'
+                            name='phamacy'
+                            value={phamacy}
+                            onChange={onChange}
+                          />
+                        </Form.Group>
+                      </Card.Body>
+                    </Accordion.Collapse>
+                  </Card>
+                  <Card className='border'>
+                    <Accordion.Toggle as={Card.Header} eventKey='1'>
+                      <i className='feather icon-bell mr-2' />
+                      Set Reminder
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey='1'>
+                      <Card.Body>
+                        <Form.Group>
+                          <Form.Label>Reminder Time</Form.Label>
+                          <Datetime
+                            dateFormat={false}
+                            value={prescribed}
+                            inputProps={{ placeholder: 'Select Time' }}
+                          />
+                        </Form.Group>
+
+                        <Form.Group>
+                          <Form.Label>Times a Day</Form.Label>
+                          <Form.Control as='select'>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                          </Form.Control>
+                        </Form.Group>
+                      </Card.Body>
+                    </Accordion.Collapse>
+                  </Card>
+                </Accordion>
+
+                <hr />
+
+                {edit ? (
+                  <Row>
+                    <Button variant='light' onClick={() => setEdit(false)}>
+                      Cancel
+                    </Button>
+                    <Button
+                      variant='success'
+                      onClick={() => {
+                        updateMedication(formData, editMedID, profile._id);
+                        setEdit(false);
+                      }}
+                    >
+                      Update
+                    </Button>
+                  </Row>
+                ) : (
+                  <Button type='submit' variant='primary'>
+                    Add Medication Test
+                  </Button>
+                )}
+              </Form>
+            </Card.Body>
+          </Card>
         </Col>
         <Col xl={8}>
           <Card>
@@ -95,7 +297,7 @@ const Medication = ({
   );
 };
 Medication.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
+  addMedication: PropTypes.func.isRequired,
   deleteMedication: PropTypes.func.isRequired,
   updateMedication: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
@@ -107,7 +309,7 @@ const mapStateToProps = (state) => ({
   profile: state.profile
 });
 export default connect(mapStateToProps, {
-  getCurrentProfile,
+  addMedication,
   deleteMedication,
   updateMedication
 })(Medication);

@@ -16,7 +16,7 @@ import store from './store';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import { LOGOUT } from './actions/types';
-
+import { getCurrentProfile } from './actions/profile';
 const Main = () => {
   useEffect(() => {
     // check for token in LS
@@ -24,7 +24,7 @@ const Main = () => {
       setAuthToken(localStorage.token);
     }
     store.dispatch(loadUser());
-
+    store.dispatch(getCurrentProfile());
     // log user out from all tabs if they log out in one tab
     window.addEventListener('storage', () => {
       if (!localStorage.token) store.dispatch({ type: LOGOUT });

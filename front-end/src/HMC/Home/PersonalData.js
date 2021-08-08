@@ -2,17 +2,10 @@ import React, { useEffect } from 'react';
 import { Card, Tab, Nav } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrentProfile } from '../../actions/profile';
 import avatar2 from '../../assets/images/user/avatar-2.jpg';
 import avatar1 from '../../assets/images/user/avatar-1.jpg';
-const PersonalData = ({
-  getCurrentProfile,
-  auth: { user },
-  profile: { profile }
-}) => {
-  useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
+import moment from 'moment';
+const PersonalData = ({ auth: { user }, profile: { profile } }) => {
   //   const educations = education.map((edu) => (
   //     <tr key={edu._id}>
   //       <td>{edu.school}</td>
@@ -31,6 +24,17 @@ const PersonalData = ({
   //     </tr>
   //   ));
   var avatar = profile.gender === 'female' ? avatar1 : avatar2;
+  var medTest = profile && profile.medicalTest ? profile.medicalTest : [];
+  const medTests = medTest.map((test) => (
+    <li>
+      <i className='task-icon bg-c-green' />
+      <h6>
+        {test.type}
+        <span className='float-right text-muted'>{test.frequency}</span>
+      </h6>
+      <p className='text-muted'>{test.instruction}</p>
+    </li>
+  ));
   return (
     <Card>
       <Card.Body>
@@ -57,29 +61,22 @@ const PersonalData = ({
           </div>
         </div>
         <ul className='task-list'>
-          <li>
-            <i className='task-icon bg-c-green' />
-            <h6>
-              Cholesterol Testing
-              <span className='float-right text-muted'>Monthly</span>
-            </h6>
-            <p className='text-muted'>Lorem ipsum is dolorem…</p>
-          </li>
-          <li>
-            <i className='task-icon bg-c-green' />
-            <h6>
-              Blood Pressure Monitor
-              <span className='float-right text-muted'>Daily</span>
-            </h6>
-            <p className='text-muted'>Lorem ipsum is dolorem…</p>
-          </li>
+          {medTest.length !== 0 ? (
+            medTests
+          ) : (
+            <li>
+              <span className='h4 text-muted alert  '>
+                <i className=' m-2 feather icon-alert-triangle f-30' />
+                You don't have any required medical test
+              </span>
+            </li>
+          )}
         </ul>
       </Card.Body>
     </Card>
   );
 };
 PersonalData.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
 };
@@ -91,4 +88,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile
 });
-export default connect(mapStateToProps, { getCurrentProfile })(PersonalData);
+export default connect(mapStateToProps)(PersonalData);

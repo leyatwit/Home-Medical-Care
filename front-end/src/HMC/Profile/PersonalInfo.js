@@ -1,25 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Modal, Form, Card, Row, Col, Badge } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { Button, Card, Badge } from 'react-bootstrap';
+
 import moment from 'moment';
 import '../../assets/scss/style.scss';
-import Aux from '../../hoc/_Aux';
 import avatar2 from '../../assets/images/user/avatar-2.jpg';
 import avatar1 from '../../assets/images/user/avatar-1.jpg';
-import avatar3 from '../../assets/images/user/avatar-3.jpg';
 import { connect } from 'react-redux';
-import { getMemberProfiles } from '../../actions/profile';
-import DEMO from '../../store/constant';
 
 const PersonalInfo = ({
-  getMemberProfiles,
   primaryProfile,
-  profile: { profiles, loading }
+  auth: { user },
+  profile: { profile }
 }) => {
-  var primaryID;
   var currentProfile = primaryProfile ? primaryProfile : {};
-
-  console.log('in PersonalInfo |currentProfile:', currentProfile);
   var currentUser =
     primaryProfile && primaryProfile.user ? primaryProfile.user : {};
   var age = moment().diff(currentProfile.birthday, 'years');
@@ -28,23 +21,6 @@ const PersonalInfo = ({
   var weight = currentProfile.weight + ' lb';
   var avartar = currentProfile.gender === 'female' ? avatar1 : avatar2;
 
-  useEffect(() => {
-    if (currentProfile) {
-      console.log('Primary Profile:', currentProfile);
-      primaryID = currentProfile._id;
-      getMemberProfiles(primaryID);
-    }
-  }, [getMemberProfiles, primaryID]);
-  console.log('Profiles:', profiles);
-  const members = profiles.map((mem) => (
-    <a href={`/profile/${mem._id}`}>
-      <img
-        className='img-fluid media-object img-radius mr-3'
-        src={mem.gender === 'female' ? avatar1 : avatar2}
-        alt='1'
-      />
-    </a>
-  ));
   return (
     <Card className='loction-user'>
       <Card.Header>
@@ -59,22 +35,22 @@ const PersonalInfo = ({
           />
           <br />
           <Badge variant='primary'>Primary Profile</Badge>
-          <h5 className='mt-4'>{currentUser.name}</h5>
+          <h5 className='mt-4'>{currentProfile.name}</h5>
 
-          <div className='row card-active  text-center'>
-            <div className='col-md-3 col-6'>
+          <div className='row card-active text-center'>
+            <div className='col-md-3 col-sm-6 '>
               <h4>{age}</h4>
               <span className='text-muted'>Age</span>
             </div>
-            <div className='col-md-3 col-6'>
+            <div className='col-md-3 col-sm-6 '>
               <h4>{weight}</h4>
               <span className='text-muted'>Weight</span>
             </div>
-            <div className='col-md-3 col-6'>
+            <div className='col-md-3 col-sm-6 mt-sm-2'>
               <h4>{height}</h4>
               <span className='text-muted'>Height</span>
             </div>
-            <div className='col-md-3 col-12'>
+            <div className='col-md-3 col-sm-6 mt-sm-2'>
               <h4>{currentProfile.bmi}</h4>
               <span className='text-muted'>IBM</span>
             </div>
@@ -88,30 +64,21 @@ const PersonalInfo = ({
             <i className='feather icon-edit f-20 text-white' />
             Edit Profile
           </Button>
-        </div>
-
-        <Card.Header>
-          <Card.Title as='h5'>Family Member</Card.Title>
-        </Card.Header>
-        <div className='task-list-table text-center m-4'>
-          {members}
-          <a href='/add-member-profile'>
-            <i className='fa fa-plus' />
-          </a>
+          <Button
+            className='btn theme-bg text-uppercase text-white '
+            href={`/members/${currentProfile._id}`}
+          >
+            {' '}
+            <i className='feather icon-edit f-20 text-white' />
+            Family member
+          </Button>
         </div>
       </Card.Body>
     </Card>
   );
 };
-PersonalInfo.propTypes = {
-  getMemberProfiles: PropTypes.func.isRequired,
-  // profiles: PropTypes.array.isRequired,
-  // primaryID: PropTypes.string.isRequired,
-  // auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
-};
 const mapStateToProps = (state) => ({
-  // profiles: state.profiles,
+  auth: state.auth,
   profile: state.profile
 });
-export default connect(mapStateToProps, { getMemberProfiles })(PersonalInfo);
+export default connect(mapStateToProps)(PersonalInfo);

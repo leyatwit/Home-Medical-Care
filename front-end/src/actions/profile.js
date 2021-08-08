@@ -50,7 +50,7 @@ export const getProfiles = () => async (dispatch) => {
 };
 // Get member profiles
 export const getMemberProfiles = (primaryID) => async (dispatch) => {
-  dispatch({ type: CLEAR_PROFILE });
+  // dispatch({ type: CLEAR_PROFILE });
   try {
     const res = await api.get(`/profile/members/${primaryID}`);
 
@@ -58,6 +58,7 @@ export const getMemberProfiles = (primaryID) => async (dispatch) => {
       type: GET_MEMBER_PROFILES,
       payload: res.data
     });
+    // dispatch({ type: GET_PROFILE });
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -140,12 +141,13 @@ export const createMemberProfile =
         )
         // setAlert('Profile Created', 'success')
       );
-
-      if (!edit) {
-        history.push('/home');
-      } else {
-        history.push('/profile');
-      }
+      console.log('Member Adding', formData);
+      history.push(`/members/${formData.primaryProfile}`);
+      // if (!edit) {
+      //   history.push('/');
+      // } else {
+      //   history.push('/profile');
+      // }
     } catch (err) {
       const errors = err.response.data.errors;
 
@@ -207,10 +209,13 @@ export const deleteAppointment = (id) => async (dispatch) => {
   }
 };
 // Add Medical Test
-export const addMedicalTest = (formData, history) => async (dispatch) => {
+export const addMedicalTest = (formData, profileID) => async (dispatch) => {
+  var data = {};
+  data.formData = formData;
+  data.profileID = profileID;
   try {
-    console.log(formData);
-    const res = await api.put('/profile/medTest', formData);
+    console.log(data);
+    const res = await api.put(`/profile/medTest/${profileID}`, formData);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -232,10 +237,40 @@ export const addMedicalTest = (formData, history) => async (dispatch) => {
     });
   }
 };
+// Update Medical Test
+export const updateMedicalTest =
+  (formData, testID, profileID) => async (dispatch) => {
+    try {
+      const res = await api.put(
+        `/profile/medTest/${profileID}/${testID}`,
+        formData
+      );
+
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: res.data
+      });
+
+      dispatch(setAlert('Medical Test Added', 'success'));
+      // history.push('/home');
+    } catch (err) {
+      const errors = err.response.errors;
+
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      }
+
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status }
+      });
+    }
+  };
+
 // Delete Medical Test
-export const deleteMedicalTest = (id) => async (dispatch) => {
+export const deleteMedicalTest = (profileID, testID) => async (dispatch) => {
   try {
-    const res = await api.delete(`/profile/medTest/${id}`);
+    const res = await api.delete(`/profile/medTest/${profileID}/${testID}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -295,27 +330,31 @@ export const deleteSymptom = (id) => async (dispatch) => {
   }
 };
 // Update medication
-export const updateMedication = (id) => async (dispatch) => {
-  try {
-    const res = await api.put(`/profile/medication/${id}`);
+export const updateMedication =
+  (formData, testID, profileID) => async (dispatch) => {
+    try {
+      const res = await api.put(
+        `/profile/medication/${profileID}/${testID}`,
+        formData
+      );
 
-    dispatch({
-      type: UPDATE_PROFILE,
-      payload: res.data
-    });
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: res.data
+      });
 
-    dispatch(setAlert('Medication Updated', 'success'));
-  } catch (err) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
+      dispatch(setAlert('Medication Updated', 'success'));
+    } catch (err) {
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status }
+      });
+    }
+  };
 // Delete medication
-export const deleteMedication = (id) => async (dispatch) => {
+export const deleteMedication = (profileID, testID) => async (dispatch) => {
   try {
-    const res = await api.delete(`/profile/medication/${id}`);
+    const res = await api.delete(`/profile/medication/${profileID}/${testID}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -332,9 +371,9 @@ export const deleteMedication = (id) => async (dispatch) => {
 };
 
 // Add Medication
-export const addMedication = (formData, history) => async (dispatch) => {
+export const addMedication = (formData, profileID) => async (dispatch) => {
   try {
-    const res = await api.put('/profile/medication', formData);
+    const res = await api.put(`/profile/medication/${profileID}`, formData);
 
     dispatch({
       type: UPDATE_PROFILE,

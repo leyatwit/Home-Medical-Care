@@ -8,20 +8,12 @@ import Spinner from '../../App/layout/Spinner';
 // import DashboardActions from './DashboardActions';
 // import Experience from './Experience';
 // import Education from './Education';
-import { getCurrentProfile } from '../../actions/profile';
 import UpcomingAppointment from './UpcomingAppointment';
 import MedicationReminder from './MedicationReminder';
 import PersonalData from './PersonalData';
 import Virtualization from './Virtualization';
 
-const Dashboard = ({
-  getCurrentProfile,
-  auth: { user },
-  profile: { profile, loading }
-}) => {
-  useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
+const Dashboard = ({ auth: { user }, profile: { profile, loading } }) => {
   return (
     // <Fragment>{profile !== null ? <Dashboard /> : <Newprofile />}</Fragment>
     // <Fragment>Home</Fragment>
@@ -81,7 +73,6 @@ const Dashboard = ({
 };
 
 Dashboard.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
 };
@@ -91,4 +82,4 @@ const mapStateToProps = (state) => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps)(Dashboard);

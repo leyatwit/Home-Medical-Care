@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import Dashboard from '../../../HMC/Home/Dashboard';
 import Profile from '../../../HMC/Profile/Profile';
+import FamilyMember from '../../../HMC/Profile/FamilyMember';
 import MemberProfile from '../../../HMC/Profile/MemberProfile';
 import Appointment from '../../../HMC/Appointment/Appointment';
 import Measurement from '../../../HMC/HomeHealthTesting/Measurement';
@@ -20,8 +21,10 @@ const Routes = (props) => {
       <PrivateRoute exact path='/' component={Dashboard} />
       <PrivateRoute exact path='/home' component={Dashboard} />
       <PrivateRoute exact path='/profile' component={Profile} />
+      <PrivateRoute exact path='/members/:id' component={FamilyMember} />
       <PrivateRoute exact path='/add-profile' component={ProfileForm} />
       <PrivateRoute exact path='/edit-profile' component={ProfileForm} />
+
       <PrivateRoute
         exact
         path='/add-member-profile'

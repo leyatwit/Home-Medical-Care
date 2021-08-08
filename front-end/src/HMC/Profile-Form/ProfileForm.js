@@ -25,12 +25,13 @@ const initialState = {
   heightInch: '',
   bmi: '',
   birthday: '',
-  isSelf: true,
+  isPrimary: true,
   relationship: ''
 };
 
 const ProfileForm = ({
   profile: { profile, loading },
+  auth: { user },
   createProfile,
   getCurrentProfile,
   history
@@ -46,12 +47,14 @@ const ProfileForm = ({
     variant: '',
     title: ''
   });
+  var primaryName = user ? user.name : '';
   var currentUser = profile && profile.user ? profile.user : {};
   var currentProfile = profile ? profile : {};
   var avartar = currentProfile.gender === 'female' ? avatar1 : avatar2;
   const creatingProfile = useRouteMatch('/create-profile') || !profile;
   useEffect(() => {
     if (!profile) getCurrentProfile();
+    if (user) setFormData({ ...formData, name: primaryName });
     if (!loading && profile) {
       const profileData = { ...initialState };
       for (const key in profile) {
@@ -63,15 +66,8 @@ const ProfileForm = ({
     }
   }, [loading, getCurrentProfile, profile]);
 
-  const {
-    gender,
-    weight,
-    heightFeet,
-    heightInch,
-    bmi,
-    relationship,
-    birthday
-  } = formData;
+  const { name, gender, weight, heightFeet, heightInch, bmi, birthday } =
+    formData;
 
   const onChange = (e) => {
     console.log('BMI:', bmi);
@@ -170,11 +166,25 @@ const ProfileForm = ({
                   src={avartar}
                   alt='dashboard-user'
                 />
-                <h5 className='mt-4'>{currentUser.name}</h5>
+                <h5 className='mt-4'>{profile ? profile.name : primaryName}</h5>
                 <h6 className='text-muted'>Primary Profile</h6>
               </div>
 
               <Form className='form' onSubmit={onSubmit}>
+                <Form.Group as={Row} controlId='formDate1'>
+                  <Form.Label column sm={3}>
+                    Name
+                  </Form.Label>
+                  <Col sm={9}>
+                    <Form.Control
+                      type='text'
+                      name='name'
+                      value={name}
+                      onChange={onChange}
+                      placeholder='enter your name ...'
+                    />
+                  </Col>
+                </Form.Group>
                 <Form.Group as={Row} controlId='formDate1'>
                   <Form.Label column sm={3}>
                     Birthday
@@ -304,7 +314,8 @@ ProfileForm.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  profile: state.profile
+  profile: state.profile,
+  auth: state.auth
 });
 
 export default connect(mapStateToProps, { createProfile, getCurrentProfile })(

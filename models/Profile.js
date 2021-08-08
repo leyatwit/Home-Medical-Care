@@ -36,6 +36,10 @@ const ProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'primary'
   },
+  isPrimary: {
+    type: Boolean,
+    default: false
+  },
   medicalDocument: [
     {
       type: {

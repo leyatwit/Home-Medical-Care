@@ -31,10 +31,6 @@ router.post(
   auth,
   // check('firstName', 'First name is required').notEmpty(),
   // check('lastName', 'Last name is required').notEmpty(),
-  check(
-    'isSelf',
-    'Please choose whether you are the primary user or not'
-  ).notEmpty(),
   async (req, res) => {
     // console.log(req.body);
     const errors = validationResult(req);
@@ -175,7 +171,6 @@ router.get(
       const profile = await Profile.find({
         primaryProfile: primary_id
       }).populate('user', ['email', 'name']);
-      console.log('members:', profile);
       if (!profile)
         return res.status(400).json({ msg: ' Member Profile not found' });
 
@@ -218,7 +213,6 @@ router.get(
 router.get('/:id', auth, async (req, res) => {
   try {
     const profile = await Profile.findById(req.params.id);
-    console.log('member profile:', profile);
     if (!profile) {
       return res.status(404).json({ msg: 'Profile not found' });
     }
@@ -275,62 +269,57 @@ router.delete('/appointment/:exp_id', auth, async (req, res) => {
     return res.status(500).json({ msg: 'Server error' });
   }
 });
-// @route    PUT api/profile/medication
+// @route    PUT api/profile/medication/:profileID
 // @desc     Add profile medication
 // @access   Private
-router.put(
-  '/medication',
-  auth,
-  check('name', 'Medication name is required').notEmpty(),
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    try {
-      const profile = await Profile.findOne({ user: req.user.id });
-
-      profile.medication.unshift(req.body);
-
-      await profile.save();
-
-      res.json(profile);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error for Add Medication');
-    }
+router.put('/medication/:profileID', auth, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
   }
-);
+
+  try {
+    const profile = await Profile.findById(req.params.profileID);
+
+    profile.medication.unshift(req.body);
+
+    await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error for Add Medication');
+  }
+});
 // @route    DELETE api/profile/medication/:exp_id
 // @desc     Delete medication from profile
 // @access   Private
 
-router.delete('/medication/:exp_id', auth, async (req, res) => {
+router.delete('/medication/:profileID/:testID', auth, async (req, res) => {
   try {
-    const foundProfile = await Profile.findOne({ user: req.user.id });
+    const foundProfile = await Profile.findById(req.params.profileID);
 
     foundProfile.medication = foundProfile.medication.filter(
-      (exp) => exp._id.toString() !== req.params.exp_id
+      (exp) => exp._id.toString() !== req.params.testID
     );
 
     await foundProfile.save();
     return res.status(200).json(foundProfile);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ msg: 'Server error' });
+    return res.status(500).json({ msg: 'Server error in Delete Medication' });
   }
 });
-// @route    UPDATE api/profile/medication/:med_id
+// @route    UPDATE api/profile/medication/:profileID/:testID
 // @desc     Update medication from profile
 // @access   Private
 
-router.put('/medication/:med_id', auth, async (req, res) => {
+router.put('/medication/:profileID/:testID', auth, async (req, res) => {
   try {
-    const foundProfile = await Profile.findOne({ user: req.user.id });
+    const foundProfile = await Profile.findById(req.params.profileID);
 
     foundProfile.medication = foundProfile.medication.filter(
-      (exp) => exp._id.toString() !== req.params.exp_id
+      (exp) => exp._id.toString() !== req.params.testID
     );
     foundProfile.medication.unshift(req.body);
     await foundProfile.save();
@@ -340,24 +329,25 @@ router.put('/medication/:med_id', auth, async (req, res) => {
     return res.status(500).json({ msg: 'Server error in Update Medication' });
   }
 });
-// @route    PUT api/profile/medTest
+// @route    PUT api/profile/medTest/:profileID
 // @desc     Add profile medical test
 // @access   Private
 router.put(
-  '/medTest',
+  '/medTest/:profileID',
   auth,
   check('type', 'Medical Test type is required').notEmpty(),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      console.log('err', errors);
       return res.status(400).json({ errors: errors.array() });
     }
 
     try {
-      const profile = await Profile.findOne({ user: req.user.id });
-
+      console.log('req data:', req.body);
+      // const profile = await Profile.findOne({ user: req.user.id });
+      const profile = await Profile.findById(req.params.profileID);
       profile.medicalTest.unshift(req.body);
-
       await profile.save();
 
       res.json(profile);
@@ -367,16 +357,42 @@ router.put(
     }
   }
 );
-// @route    DELETE api/profile/medTest/:exp_id
+// @route    PUT api/profile/medTest/:profileID/:testID
+// @desc     update medical test in Profile
+// @access   Private
+router.put('/medTest/:profileID/:testID', auth, async (req, res) => {
+  try {
+    console.log('req data:', req.body);
+    // const profile = await Profile.findOne({ user: req.user.id });
+    const foundProfile = await Profile.findById(req.params.profileID);
+    // Delete the test
+    foundProfile.medicalTest = foundProfile.medicalTest.filter(
+      (test) => test._id.toString() !== req.params.testID
+    );
+    foundProfile.medicalTest.unshift(req.body);
+    //////////////////
+    // const testID = req.body.id;
+    // // Pull out comment
+    // const test = Profile.medicalTest.find((test) => test.id === testID);
+
+    await foundProfile.save();
+
+    res.json(foundProfile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error in Update Medical Test');
+  }
+});
+// @route    DELETE api/profile/medTest/:profileID/:testID
 // @desc     Delete medical test from profile
 // @access   Private
 
-router.delete('/medTest/:exp_id', auth, async (req, res) => {
+router.delete('/medTest/:profileID/:testID', auth, async (req, res) => {
   try {
-    const foundProfile = await Profile.findOne({ user: req.user.id });
+    const foundProfile = await Profile.findById(req.params.profileID);
 
     foundProfile.medicalTest = foundProfile.medicalTest.filter(
-      (exp) => exp._id.toString() !== req.params.exp_id
+      (exp) => exp._id.toString() !== req.params.testID
     );
 
     await foundProfile.save();
