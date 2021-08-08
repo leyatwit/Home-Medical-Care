@@ -90,7 +90,7 @@ class Breadcrumb extends Component {
 
         }
 
-        document.title = title + ' | Home Medical Care';
+        document.title = title + ' | MedCare4Home';
 
         return (
             <Aux>

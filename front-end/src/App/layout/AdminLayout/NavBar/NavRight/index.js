@@ -38,12 +38,12 @@ const NavRight = ({
               <div className='pro-head'>
                 <img
                   src={avatar ? avatar : ''}
-                  height='60px'
-                  width='60px'
+                  height='40px'
+                  width='40px'
                   className='img-radius'
                   alt='User Profile'
                 />
-                <span className='h4 m-2 mt-4 text-primary'>
+                <span className='h5 m-2 mt-4 text-primary'>
                   {name ? name : ''}
                 </span>
               </div>

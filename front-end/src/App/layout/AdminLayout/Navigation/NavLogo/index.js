@@ -15,7 +15,7 @@ const navLogo = (props) => {
                     <div className="b-bg">
                         <i className="feather icon-heart" />
                     </div>
-                    <span className="b-title">Home Medical Care</span>
+                    <span className="b-title">MedCare4Home</span>
                  </a>
                 <a href={DEMO.BLANK_LINK} className={toggleClass.join(' ')} id="mobile-collapse" onClick={props.onToggleNavigation}><span /></a>
             </div>

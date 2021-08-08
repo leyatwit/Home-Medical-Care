@@ -70,7 +70,7 @@ const Medication = ({
             onClick={() => handleEdit(med)}
           >
             <i className='feather icon-edit' />
-            Edit Medication
+            Edit
           </Button>
           <Button
             className='btn btn-outline-danger float-right'

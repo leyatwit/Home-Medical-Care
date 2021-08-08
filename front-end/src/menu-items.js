@@ -74,7 +74,7 @@ export default {
           id: 'prescription',
           title: 'Manage Prescriptions',
           type: 'item',
-          icon: 'feather icon-command',
+          icon: 'feather icon-folder',
           url: '/medication'
         },
         {
@@ -88,16 +88,9 @@ export default {
           id: 'add-test',
           title: 'Medical Test',
           type: 'item',
-          icon: 'feather icon-star',
+          icon: 'feather icon-list',
           url: '/home-medical-test'
         },        
-        {
-          id: 'add-measurement',
-          title: 'Body Measurement',
-          type: 'item',
-          icon: 'feather icon-film',
-          url: '/body-measurement'
-        },
       ]
     },
     {
@@ -122,13 +115,24 @@ export default {
           id: 'visualization',
           title: 'Visualization',
           type: 'item',
-          icon: 'feather icon-slack',
+          icon: 'feather icon-bar-chart-2',
           url: '/visualization',
           badge: {
             title: 'Upcoming',
             type: 'label-success'
           }
-        }
+        },
+        {
+          id: 'add-measurement',
+          title: 'Measurement',
+          type: 'item',
+          icon: 'feather icon-edit-2',
+          url: '/body-measurement',
+          badge: {
+            title: 'Upcoming',
+            type: 'label-success'
+          }
+        },
       ]
     }
   ]

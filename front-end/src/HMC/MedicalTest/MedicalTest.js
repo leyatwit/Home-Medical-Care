@@ -125,9 +125,9 @@ const MedicalTest = ({
                   medTests
                 ) : (
                   <li>
-                    <span className='h4 text-muted alert  '>
-                      <i className=' m-2 feather icon-alert-triangle f-30' />
-                      You don't have any required medical test
+                    <span className='h5 text-muted alert  '>
+                      <i className=' m-2 feather icon-alert-triangle f-20' />
+                      No required medical tests
                     </span>
                   </li>
                 )}
@@ -172,7 +172,7 @@ const MedicalTest = ({
                   <Form.Label>Medical Testing Instruction</Form.Label>
                   <Form.Control
                     as='textarea'
-                    rows='5'
+                    rows='3'
                     name='instruction'
                     value={instruction}
                     onChange={onChange}
