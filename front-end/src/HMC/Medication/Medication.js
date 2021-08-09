@@ -192,6 +192,7 @@ const Medication = ({
                           <Form.Label>Prescribed</Form.Label>
                           <Datetime
                             timeFormat={false}
+                            value={prescribed}
                             onChange={handleDate}
                             inputProps={{ placeholder: 'Select Date' }}
                           />
