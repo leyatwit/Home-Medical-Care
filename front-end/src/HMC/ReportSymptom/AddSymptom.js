@@ -104,7 +104,7 @@ const AddSymptom = ({ addSymptom, history }) => {
     }
     console.log('data', data);
     axios
-      .post('http://localhost:5000/upload', data)
+      .post('http://192.168.1.185:5000/upload', data)
       .then((res) => {
         //add symptom
         addSymptom(formData, history);
