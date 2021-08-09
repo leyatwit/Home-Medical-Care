@@ -24,7 +24,7 @@ const Main = () => {
       setAuthToken(localStorage.token);
     }
     store.dispatch(loadUser());
-    // store.dispatch(getCurrentProfile());
+    store.dispatch(getCurrentProfile());
     // log user out from all tabs if they log out in one tab
     window.addEventListener('storage', () => {
       if (!localStorage.token) store.dispatch({ type: LOGOUT });
