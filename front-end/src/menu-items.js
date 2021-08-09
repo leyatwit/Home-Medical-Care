@@ -90,7 +90,7 @@ export default {
           type: 'item',
           icon: 'feather icon-list',
           url: '/home-medical-test'
-        },        
+        }
       ]
     },
     {
@@ -121,18 +121,18 @@ export default {
             title: 'Upcoming',
             type: 'label-success'
           }
-        },
-        {
-          id: 'add-measurement',
-          title: 'Measurement',
-          type: 'item',
-          icon: 'feather icon-edit-2',
-          url: '/body-measurement',
-          badge: {
-            title: 'Upcoming',
-            type: 'label-success'
-          }
-        },
+        }
+        // {
+        //   id: 'add-measurement',
+        //   title: 'Measurement',
+        //   type: 'item',
+        //   icon: 'feather icon-edit-2',
+        //   url: '/body-measurement',
+        //   badge: {
+        //     title: 'Upcoming',
+        //     type: 'label-success'
+        //   }
+        // },
       ]
     }
   ]

@@ -21,22 +21,22 @@ const bodyOptions = [
   { value: 'leg', label: 'Legs', color: '#FF5630' }
 ];
 const symptomOptions = [
-  { value: 'abdominalCramps', label: 'Abdominal Cramps' },
-  { value: 'acne', label: 'Acne' },
-  { value: 'appetiteChanges', label: 'Appetite Changes' },
-  { value: 'bladderIncontinence', label: 'Bladder Incontinence' },
-  { value: 'bloating', label: 'Bladder Incontinence' },
-  { value: 'skin_rash', label: 'Skin Rash' },
-  { value: 'chill ', label: 'Chill' },
-  { value: 'acidity', label: 'Acidity' },
-  { value: 'vomiting', label: 'Vomiting' },
-  { value: 'fatigue', label: 'Fatigue' },
-  { value: 'nausea', label: 'Nausea' },
-  { value: 'diarrhoea', label: 'Diarrhoea' },
-  { value: 'cramps', label: 'Cramps' },
-  { value: 'bruising', label: 'Bruising' },
-  { value: 'depression', label: 'Depression' },
-  { value: 'scurring', label: 'Scurring' }
+  { value: 'Abdominal Cramps', label: 'Abdominal Cramps' },
+  { value: 'Acne', label: 'Acne' },
+  { value: 'Appetite Changes', label: 'Appetite Changes' },
+  { value: 'Bladder Incontinence', label: 'Bladder Incontinence' },
+  { value: 'Bloating', label: 'Bloating' },
+  { value: 'Skin Rash', label: 'Skin Rash' },
+  { value: 'Chill ', label: 'Chill' },
+  { value: 'Acidity', label: 'Acidity' },
+  { value: 'Vomiting', label: 'Vomiting' },
+  { value: 'Fatigue', label: 'Fatigue' },
+  { value: 'Nausea', label: 'Nausea' },
+  { value: 'Diarrhoea', label: 'Diarrhoea' },
+  { value: 'Cramps', label: 'Cramps' },
+  { value: 'Bruising', label: 'Bruising' },
+  { value: 'Depression', label: 'Depression' },
+  { value: 'Scurring', label: 'Scurring' }
 ];
 const AddSymptom = ({ addSymptom, history }) => {
   const [formData, setFormData] = useState({
