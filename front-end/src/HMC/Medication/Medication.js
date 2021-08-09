@@ -276,7 +276,7 @@ const Medication = ({
                   </Row>
                 ) : (
                   <Button type='submit' variant='primary'>
-                    Add Medication Test
+                    Add Medication
                   </Button>
                 )}
               </Form>
