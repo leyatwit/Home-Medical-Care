@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { Card, Badge, Button } from 'react-bootstrap';
 import '../../assets/scss/style.scss';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -61,14 +62,13 @@ const MemberProfile = ({
                 </div>
               </div>
               {/* <a href={DEMO.BLANK_LINK} className="btn theme-bg text-uppercase text-white "><i className="feather icon-edit f-20 text-white"/>Edit Profile</a> */}
-              <Button
-                className='btn theme-bg text-uppercase text-white '
-                href='/edit-profile'
-              >
-                {' '}
-                <i className='feather icon-edit f-20 text-white' />
-                Edit Profile
-              </Button>
+
+              <Link to={`/edit-member-profile/${profile._id}`}>
+                <div className='btn theme-bg text-uppercase text-white '>
+                  <i className='feather icon-edit f-20 text-white' /> Edit
+                  Member Profile{' '}
+                </div>
+              </Link>
               <Button
                 className='btn theme-bg text-uppercase text-white '
                 href='/profile'

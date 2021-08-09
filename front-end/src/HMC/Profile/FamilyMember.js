@@ -10,11 +10,7 @@ import avatar3 from '../../assets/images/user/avatar-3.jpg';
 import UcFirst from '../../App/components/UcFirst';
 import DEMO from '../../store/constant';
 import { connect } from 'react-redux';
-import {
-  getCurrentProfile,
-  getMemberProfiles,
-  match
-} from '../../actions/profile';
+import { getMemberProfiles, match } from '../../actions/profile';
 import { get } from 'mongoose';
 const FamilyMember = ({
   profile: { profiles, profile, loading },
@@ -26,7 +22,7 @@ const FamilyMember = ({
     // getCurrentProfile();
     console.log('primaryID: ', match.params.id);
     getMemberProfiles(match.params.id);
-  }, [getMemberProfiles, getCurrentProfile]);
+  }, [getMemberProfiles]);
   const member = profiles && profiles.length !== 0 ? profiles : [];
   const members = member.map((mem) => (
     <Col sm={6} md={4} lg={3}>
@@ -46,8 +42,8 @@ const FamilyMember = ({
         <p>
           <UcFirst text={mem.relationship} />
         </p>
-        <Link to={`/profile/${mem._id}`} className=''>
-          View Profile
+        <Link to={`/profile/${mem._id}`}>
+          <div className='btn btn-outline-success'>Switch </div>
         </Link>
       </div>
     </Col>
@@ -82,7 +78,6 @@ const FamilyMember = ({
 };
 FamilyMember.propTypes = {
   getMemberProfiles: PropTypes.func.isRequired,
-  // getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   profiles: PropTypes.array.isRequired,
   auth: PropTypes.object.isRequired

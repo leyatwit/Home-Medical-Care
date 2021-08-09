@@ -101,7 +101,7 @@ export const createProfile =
         setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success')
         // setAlert('Profile Created', 'success')
       );
-
+      history.push('/home');
       // if (!edit) {
       //   history.push('/home');
       // } else {
@@ -130,7 +130,7 @@ export const createMemberProfile =
       const res = await api.post('/profile/member', formData);
 
       dispatch({
-        type: GET_PROFILE,
+        type: UPDATE_PROFILE,
         payload: res.data
       });
 

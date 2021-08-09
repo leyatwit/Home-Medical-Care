@@ -25,6 +25,9 @@ const PersonalData = ({ auth: { user }, profile: { profile } }) => {
   //   ));
   var avatar = profile.gender === 'female' ? avatar1 : avatar2;
   var medTest = profile && profile.medicalTest ? profile.medicalTest : [];
+  var age = moment().diff(profile.birthday, 'years');
+  var height = profile.heightFeet + "'" + profile.heightInch + "''";
+  var weight = profile.weight + ' lb';
   const medTests = medTest.map((test) => (
     <li>
       <i className='task-icon bg-c-green' />
@@ -48,15 +51,15 @@ const PersonalData = ({ auth: { user }, profile: { profile } }) => {
         </div>
         <div className='row card-active mb-5 text-center'>
           <div className='col-md-4 col-6'>
-            <h4>110 lb</h4>
+            <h4>{weight}</h4>
             <span className='text-muted'>Weight</span>
           </div>
           <div className='col-md-4 col-6'>
-            <h4>5'4</h4>
+            <h4>{height}</h4>
             <span className='text-muted'>Height</span>
           </div>
           <div className='col-md-4 col-12'>
-            <h4>20</h4>
+            <h4>{profile.bmi}</h4>
             <span className='text-muted'>IBM</span>
           </div>
         </div>

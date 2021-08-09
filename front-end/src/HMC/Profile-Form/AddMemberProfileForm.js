@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import { useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import {
-  createMemberProfile,
-  getCurrentProfile,
-  getProfileById
-} from '../../actions/profile';
+import { createMemberProfile, getProfileById } from '../../actions/profile';
 import Aux from '../../hoc/_Aux';
 import { Row, Col, Form, Card, FormControl, Button } from 'react-bootstrap';
 import avatar2 from '../../assets/images/user/avatar-2.jpg';
@@ -23,14 +19,12 @@ const initialState = {
   birthday: '',
   relationship: '',
   primaryProfile: '',
-  isSelf: false,
   relationship: ''
 };
 
-const MemberProfileForm = ({
+const AddMemberProfileForm = ({
   profile: { profile, loading },
   createMemberProfile,
-  getCurrentProfile,
   getProfileById,
   history
 }) => {
@@ -39,24 +33,17 @@ const MemberProfileForm = ({
     variant: '',
     title: ''
   });
+  console.log('Profile', profile);
   var currentUser = profile && profile.user ? profile.user : {};
   var currentProfile = profile ? profile : {};
   var avartar = currentProfile.gender === 'female' ? avatar1 : avatar2;
   const creatingMemberProfile = useRouteMatch('/add-member-profile');
-  useEffect(() => {
-    if (!profile) getCurrentProfile();
 
-    if (!loading && profile) {
+  useEffect(() => {
+    if (profile) {
       setFormData({ ...formData, primaryProfile: profile._id });
-      // const profileData = { ...initialState };
-      // for (const key in profile) {
-      //   if (key === 'birthday') {
-      //     profileData[key] = moment.utc(profile[key]).format('MM/DD/YYYY');
-      //   } else if (key in profileData) profileData[key] = profile[key];
-      // }
-      // setFormData(profileData);
     }
-  }, [loading, getCurrentProfile, profile]);
+  }, []);
 
   const {
     name,
@@ -329,17 +316,17 @@ const MemberProfileForm = ({
   );
 };
 
-MemberProfileForm.propTypes = {
+AddMemberProfileForm.propTypes = {
   createMemberProfile: PropTypes.func.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  profile: state.profile
+  profile: state.profile,
+  auth: state.auth
 });
 
 export default connect(mapStateToProps, {
-  createMemberProfile,
-  getCurrentProfile
-})(MemberProfileForm);
+  createMemberProfile
+})(AddMemberProfileForm);

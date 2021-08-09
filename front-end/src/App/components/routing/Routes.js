@@ -11,7 +11,8 @@ import Visualization from '../../../HMC/HomeHealthTesting/Visualization/Visualiz
 import Medication from '../../../HMC/Medication/Medication';
 import ReportSymptom from '../../../HMC/ReportSymptom/ReportSymptom';
 import ProfileForm from '../../../HMC/Profile-Form/ProfileForm';
-import MemberProfileForm from '../../../HMC/Profile-Form/MemberProfileForm';
+import AddMemberProfileForm from '../../../HMC/Profile-Form/AddMemberProfileForm';
+import EditMemberProfileForm from '../../../HMC/Profile-Form/EditMemberProfileForm';
 import Pulse from '../../../HMC/HealthMonitor/Pulse';
 import MedicalTest from '../../../HMC/MedicalTest/MedicalTest';
 
@@ -28,12 +29,12 @@ const Routes = (props) => {
       <PrivateRoute
         exact
         path='/add-member-profile'
-        component={MemberProfileForm}
+        component={AddMemberProfileForm}
       />
       <PrivateRoute
         exact
-        path='/edit-member-profile'
-        component={MemberProfileForm}
+        path='/edit-member-profile/:id'
+        component={EditMemberProfileForm}
       />
       <PrivateRoute exact path='/profile/:id' component={MemberProfile} />
       <PrivateRoute exact path='/appointment' component={Appointment} />
