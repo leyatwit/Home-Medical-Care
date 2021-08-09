@@ -41,15 +41,15 @@ const PersonalData = ({ auth: { user }, profile: { profile } }) => {
   return (
     <Card>
       <Card.Body>
-        <div className='text-center m-b-30'>
+        <div className='text-center'>
           <img
             className='img-fluid rounded-circle'
             src={avatar}
             alt='dashboard-user'
           />
-          <h3 className='mt-5'> {profile.isSelf ? user.name : profile.name}</h3>
+          <h3 className='mt-3'> {profile.isSelf ? user.name : profile.name}</h3>
         </div>
-        <div className='row card-active mb-5 text-center'>
+        <div className='row card-active text-center'>
           <div className='col-md-4 col-6'>
             <h4>{weight}</h4>
             <span className='text-muted'>Weight</span>
