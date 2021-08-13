@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
-import axios from 'axios';
 import './../../assets/scss/style.scss';
 import Aux from '../../hoc/_Aux';
 import Breadcrumb from '../../App/layout/AdminLayout/Breadcrumb';
@@ -29,31 +28,8 @@ const SignUp = ({ setAlert, register, isAuthenticated }) => {
     e.preventDefault();
     if (password !== password2) {
       setAlert('Passwords do not match', 'danger');
-      // console.log('Password do not match');
     } else {
       register({ name, email, password });
-      // const newUser = {
-      //   email,
-      //   password
-      // };
-      // try {
-      //   const config = {
-      //     headers: {
-      //       'Content-Type': 'application/json'
-      //     }
-      //   };
-
-      //   const body = JSON.stringify(newUser);
-
-      //   const res = await axios.post(
-      //     'http://localhost:5000/api/user ',
-      //     body,
-      //     config
-      //   );
-      //   console.log(res.data);
-      // } catch (err) {
-      //   console.log(err.response.data);
-      // }
     }
   };
 

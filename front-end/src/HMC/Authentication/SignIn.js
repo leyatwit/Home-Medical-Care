@@ -88,23 +88,10 @@ const SignIn = ({ login, isAuthenticated }) => {
                     onChange={onChange}
                   />
                 </div>
-                <div className='form-group text-left'>
-                  {/* <div className='checkbox checkbox-fill d-inline'>
-                    <input
-                      type='checkbox'
-                      name='checkbox-fill-1'
-                      id='checkbox-fill-a1'
-                    />
-                    <label htmlFor='checkbox-fill-a1' className='cr'>
-                      {' '}
-                      Save credentials
-                    </label>
-                  </div> */}
-                </div>
+                <div className='form-group text-left'></div>
                 <button type='submit' className='btn btn-primary shadow-2 mb-4'>
                   Login
                 </button>
-                {/* <p className="mb-2 text-muted">Forgot password? <NavLink to="/auth/reset-password-1">Reset</NavLink></p> */}
                 <p className='mb-0 text-muted'>
                   Don’t have an account?{' '}
                   <NavLink to='/auth/signup'>Signup</NavLink>
