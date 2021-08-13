@@ -1,23 +1,10 @@
 import React, { useEffect } from 'react';
-import {
-  Row,
-  Col,
-  Card,
-  Form,
-  InputGroup,
-  Button,
-  Table
-} from 'react-bootstrap';
-// import DropzoneComponent from 'react-dropzone-component';
-// import Select from 'react-select';
-import CreatableSelect from 'react-select/creatable';
+import { Row, Col, Card, Button, Table } from 'react-bootstrap';
 import Aux from '../../hoc/_Aux';
-import Select from 'react-select';
 import AddSymptom from './AddSymptom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import Gallery from './Gallery';
 import {
   getCurrentProfile,
   deleteMedication,
