@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Row, Col, Card, Form, Button } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import Datetime from 'react-datetime';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

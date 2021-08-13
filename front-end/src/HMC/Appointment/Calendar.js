@@ -24,62 +24,6 @@ const Calendar = ({
     return obj;
   });
 
-  //   constructor(props) {
-  //     super(props);
-  //     this.state = {
-  //       today: '2021-06-28',
-  //       events: [
-  //         {
-  //           title: 'Jones | Check up',
-  //           start: '2021-06-28T07:30:00',
-  //           borderColor: '#a389d4',
-  //           backgroundColor: '#a389d4',
-  //           textColor: '#fff'
-  //         },
-  //         {
-  //           title: 'Mengting | Check up',
-  //           start: '2021-06-01T11:00:00',
-  //           borderColor: '#f44236',
-  //           backgroundColor: '#f44236',
-  //           textColor: '#fff'
-  //         },
-  //         {
-  //           title: 'Yen | Vision Check',
-  //           start: '2021-06-23T08:00:00',
-  //           borderColor: '#1de9b6',
-  //           backgroundColor: '#1de9b6',
-  //           textColor: '#fff'
-  //         },
-  //         {
-  //           title: 'Jones | Check up',
-  //           start: '2021-06-12T07:30:00',
-  //           borderColor: '#a389d4',
-  //           backgroundColor: '#a389d4',
-  //           textColor: '#fff'
-  //         },
-  //         {
-  //           title: 'Mengting | Check up',
-  //           start: '2021-06-23T07:45:00',
-  //           borderColor: '#f44236',
-  //           backgroundColor: '#f44236',
-  //           textColor: '#fff'
-  //         },
-  //         {
-  //           title: 'Yen | Vision Check',
-  //           start: '2021-06-18T08:00:00',
-  //           borderColor: '#1de9b6',
-  //           backgroundColor: '#1de9b6',
-  //           textColor: '#fff'
-  //         },
-  //         {
-  //           title: 'Click for Google',
-  //           url: 'http://google.com/',
-  //           start: '2021-06-18T08:00:00'
-  //         }
-  //       ]
-  //     };
-  //   }
-
   return (
     <Aux>
       <FullCalendar
