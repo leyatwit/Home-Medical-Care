@@ -1,16 +1,12 @@
-import React, { Fragment, useState } from 'react';
-import { Row, Col, Card, Form, InputGroup, Button } from 'react-bootstrap';
-// import DropzoneComponent from 'react-dropzone-component';
+import React, { useState } from 'react';
+import { Card, Form } from 'react-bootstrap';
 import Datetime from 'react-datetime';
 import CreatableSelect from 'react-select/creatable';
-import Aux from '../../hoc/_Aux';
 import Select from 'react-select';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addSymptom } from '../../actions/profile';
-import MultipleImageUploadComponent from './MultipleImageUploadComponent';
 import axios from 'axios';
-import { Progress } from 'reactstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -140,7 +136,6 @@ const AddSymptom = ({ addSymptom, history }) => {
             <CreatableSelect
               isMulti
               options={bodyOptions}
-              // value={partOfBody}
               onChange={handleChange}
               pageSize={3}
             />
@@ -164,10 +159,6 @@ const AddSymptom = ({ addSymptom, history }) => {
               inputProps={{ placeholder: 'Select Date' }}
             />
           </Form.Group>
-          {/* <Form.Group>
-            <Form.Label>Photo</Form.Label>
-            <MultipleImageUploadComponent handleFile={handleFile} />
-          </Form.Group> */}
           <Form.Group>
             <Form.Label>Photo</Form.Label>
             <div className='form-group multi-preview'>
@@ -195,33 +186,8 @@ const AddSymptom = ({ addSymptom, history }) => {
               Add Symptom
             </button>
           </Form.Group>
-          {/* <InputGroup className='mb-3'>
-            <InputGroup.Prepend>
-              <InputGroup.Text>Upload Photo</InputGroup.Text>
-            </InputGroup.Prepend>
-            <div className='custom-file'>
-              <Form.Control
-                type='file'
-                className='custom-file-input'
-                id='validatedCustomFile1'
-                name='filename'
-                value={filename}
-                onChange={onChange}
-              />
-              <Form.Label
-                className='custom-file-label'
-                htmlFor='validatedCustomFile1'
-              >
-                Choose file
-              </Form.Label>
-            </div>
-          </InputGroup> */}
         </Form>
       </Card.Body>
-
-      {/* <Card.Body className='calendar'>
-                                <DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig} />
-                            </Card.Body> */}
     </Card>
   );
 };
