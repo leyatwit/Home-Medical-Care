@@ -32,21 +32,59 @@ MedCare4Home not only allows the users to keep track of appointments and organiz
 
 Follow these steps to set up your Raspberry Pi and the environment needed for this project
 1. [Install 64bit Raspbian on your Raspberry Pi 3 or 4](https://jamesachambers.com/where-to-get-the-64-bit-raspberry-pi-os-image-for-pi-4-400/)
+    - Go to https://downloads.raspberrypi.org/raspios_arm64/images/ for all the beta 64 bit Raspbian images released
+    - Download and unzip the latest image file (for example: 2021-10-30-raspios-bullseye-arm64.zip)
+    - Open Raspberry Pi Imager, choose `Use Custom` for Operating System and write image to your SD card
 2. [Install MongoDB](https://www.mongodb.com/developer/how-to/mongodb-on-raspberry-pi/)
-3. [Install npm/nodejs](https://www.instructables.com/Install-Nodejs-and-Npm-on-Raspberry-Pi/)
-4. [Install Git](https://linuxize.com/post/how-to-install-git-on-raspberry-pi/)
-5. Clone this repo and run it 
+    - DO NOT RUN `apt install mongodb` on your Raspberry Pi!!!
+    - First run:
+        - `sudo apt update`
+        - `sudo apt upgrade`
+    - Install MongoDB:
+        - `wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -`
+        - `echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list`
+        - `sudo apt-get update`
+        - `sudo apt-get install -y mongodb-org`
+    - Run MongoDB:
+        - `sudo systemctl daemon-reload`
+        - `sudo systemctl enable mongod`
+        - `sudo systemctl start mongod`
+    - Check to see if the service is running correctly:
+        - `sudo systemctl status mongod`
+5. [Install npm/nodejs](https://www.instructables.com/Install-Nodejs-and-Npm-on-Raspberry-Pi/)
+    - Go to node.js download page and check right click on the version of ARM that you need and choose Copy Link address. This is an example for Raspberry Pi 4 (ARMv8)
+        - `wget https://nodejs.org/dist/v16.13.2/node-v16.13.2-linux-arm64.tar.xz`
+    - Extact the archive
+        -  `tar -xzf node-v16.13.2-linux-arm64.tar.gz`
+    - Copy Node to /usr/local
+        - `cd node-v16.13.2-linux-arm64/`
+        - `sudo cp -R * /usr/local/`  
+    - Verify the installation
+        - `node -v`
+        - `npm -v`
+7. [Install Git](https://linuxize.com/post/how-to-install-git-on-raspberry-pi/)
+    - First run:
+        - `sudo apt update`
+        - `sudo apt upgrade`
+    - Verify the installation:
+        -  `git --version`
+    - Configure git
+        - `git config --global user.name "Your Name"`
+        - `git config --global user.email "youremail@yourdomain.com"`
+8. Set up resource files
+    - Clone this repo
+        - `git clone https://github.com/yennle/Home-Medical-Care.git`
 
 ## How to run the project
 
-Since this project will hold both the client application and the server application there will be node modules in two different places. 
+Since this project holds both the client application and the server application，node modules are in two different places. 
 1. Install dependencies
    - run `npm install` from the root.
    - run `cd front-end` then run `npm install` to install all modules again
 
-2. In the project directory, you can run:
+2. In the project directory, you can
    - Run `npm run-script dev` or `npm run dev` for both the client app and the server app in development mode.<br>
-     Open [http://localhost:3000](http://localhost:5000) to view the client in the browser.
+        - Open [http://localhost:3000](http://localhost:5000) to view the client in the browser.
    - Run `npm run-script client` or `npm run client` for just the client app in development mode.<br>
-     Open [http://localhost:3000](http://localhost:5000) to view the client in the browser.
+        - Open [http://localhost:3000](http://localhost:5000) to view the client in the browser.
    - Run `npm run-script server` or `npm run server` for just the server in development mode.<br>
