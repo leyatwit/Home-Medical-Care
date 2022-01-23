@@ -35,6 +35,13 @@ Follow these steps to set up your Raspberry Pi and the environment needed for th
     - Go to https://downloads.raspberrypi.org/raspios_arm64/images/ for all the beta 64 bit Raspbian images released
     - Download and unzip the latest image file (for example: 2021-10-30-raspios-bullseye-arm64.zip)
     - Open Raspberry Pi Imager, choose `Use Custom` for Operating System and write image to your SD card
+9. Allow ports
+    - Install ufw
+        - `sudo apt install ufw`
+    - Enable ufw
+        - `sudo ufw enable`
+    - Open port 22, 3000, 5000, and 27017
+        - `sudo ufw allow PORT_NUMBER`
 2. [Install MongoDB](https://www.mongodb.com/developer/how-to/mongodb-on-raspberry-pi/)
     - DO NOT RUN `apt install mongodb` on your Raspberry Pi!!!
     - First run:
@@ -51,9 +58,14 @@ Follow these steps to set up your Raspberry Pi and the environment needed for th
         - `sudo systemctl start mongod`
     - Check to see if the service is running correctly:
         - `sudo systemctl status mongod`
+    - Mongodb configuration for remote access
+        -  Open the configuration file: `sudo nano /etc/mongod.conf `
+        -  change this line:  `bind_ip = 127.0.0.1` to `bind_ip = 0.0.0.0`
+        -  Restart MongoDB: `sudo systemctl restart mongod`
+        -  Verify connection: `mongo YOUR_RASPBERRY_PI_IP`  
 5. [Install npm/nodejs](https://www.instructables.com/Install-Nodejs-and-Npm-on-Raspberry-Pi/)
     - Go to node.js download page and check right click on the version of ARM that you need and choose Copy Link address. This is an example for Raspberry Pi 4 (ARMv8)
-        - `wget https://nodejs.org/dist/v16.13.2/node-v16.13.2-linux-arm64.tar.xz`
+        - `wget https://nodejs.org/dist/v16.13.2/node-v16.13.2-linux-arm64.tar.gz`
     - Extact the archive
         -  `tar -xzf node-v16.13.2-linux-arm64.tar.gz`
     - Copy Node to /usr/local
@@ -65,7 +77,7 @@ Follow these steps to set up your Raspberry Pi and the environment needed for th
 7. [Install Git](https://linuxize.com/post/how-to-install-git-on-raspberry-pi/)
     - First run:
         - `sudo apt update`
-        - `sudo apt upgrade`
+        - `sudo apt install git`
     - Verify the installation:
         -  `git --version`
     - Configure git
@@ -74,15 +86,23 @@ Follow these steps to set up your Raspberry Pi and the environment needed for th
 8. Set up resource files
     - Clone this repo
         - `git clone https://github.com/yennle/Home-Medical-Care.git`
+10. Optional: [Connect to the 7 inch Raspberry Pi Display](https://community.element14.com/products/raspberry-pi/w/documents/888/raspberry-pi-7-touchscreen-display#installI)
 
 ## How to run the project
 
 Since this project holds both the client application and the server application，node modules are in two different places. 
 1. Install dependencies
-   - run `npm install` from the root.
-   - run `cd front-end` then run `npm install` to install all modules again
+   - run `npm install` from the project root.
+   - run `cd front-end` then run `npm install` again
 
-2. In the project directory, you can
+2. Change `localhost` to your Raspberry Pi IP address in the following files if you are running the server on Pi
+   - Must change:
+        - /config/default.json: mongoURI (line 2)
+        - /front-end/src/utils/api.js: baseURL (line 6)
+   - Future work:
+        - /front-end/src/HMC/ReportSymptom/AddSymptom.js (line 107)
+        - /front-end/src/HMC/ReportSymptom/AddFile.js (line 85)
+4. In the project directory, you can
    - Run `npm run-script dev` or `npm run dev` for both the client app and the server app in development mode.<br>
         - Open [http://localhost:3000](http://localhost:5000) to view the client in the browser.
    - Run `npm run-script client` or `npm run client` for just the client app in development mode.<br>
