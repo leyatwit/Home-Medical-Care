@@ -108,3 +108,6 @@ Since this project holds both the client application and the server applicationï
    - Run `npm run-script client` or `npm run client` for just the client app in development mode.<br>
         - Open [http://localhost:3000](http://localhost:5000) to view the client in the browser.
    - Run `npm run-script server` or `npm run server` for just the server in development mode.<br>
+
+## Lisence
+[The MIT License](https://opensource.org/license/mit/)
